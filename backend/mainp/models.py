@@ -5,8 +5,8 @@ class Expense(models.Model):
     """
     Model representing an expense
     """
-    description = model.CharField(max_lenght=255)
-    limit = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.CharField(max_length=255)
+    limit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     date = models.DateField(auto_created=True)
     category = models.CharField(max_length=100, 
         choices=[
