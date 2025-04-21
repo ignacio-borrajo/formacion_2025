@@ -1,3 +1,13 @@
 from django.shortcuts import render
+from main.controllers import get_expenses
 
-# Create your views here.
+
+def index(request):
+    """
+    View function for the index page.
+    """
+
+    expenses = get_expenses()
+    context = {"expenses": expenses, "total_expense": 0}
+
+    return render(request, "index.html", context)
