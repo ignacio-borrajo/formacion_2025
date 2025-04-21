@@ -27,3 +27,9 @@ class Expense(models.Model):
 
     def __str__(self):
         return f"{self.description} - {self.limit} - {self.date} - {self.category}"
+    
+
+    class Category (models.Model):
+        pass
+    class ExpenseLin(models.Model):
+        pass
