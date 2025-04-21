@@ -1,14 +1,15 @@
 from django.shortcuts import render
-from main.controllers import get_expenses
+from mainp.controler import get_expenses
 
 def index(request):
     """
     View function of the index page
     """
     expenses = get_expenses()
-
-    for expense in expenses:
-        print(expense.description)
+    context = {
+        "expenses":expenses,
+        "total_expense":0
+    }
 
     return render(request, "index.html")
 
