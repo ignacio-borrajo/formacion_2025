@@ -14,9 +14,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+#Por defecto en django viene así
 from django.contrib import admin
 from django.urls import path
 
+
+#Para savar la pagina del cohete
+from django.views import debug
+
+#enruto mi view personalizada
+from main.views import index
+
 urlpatterns = [
+    #Enruto por defecto la pagina de django
+    path('', debug.default_urlconf),
+    #Viene por defecto, para las gestiones como admin
     path('admin/', admin.site.urls),
+    #Enruto mi vista a la que llamo index para revisar los gastos
+    path('gastos/',index,name="index"),
 ]

@@ -1,0 +1,15 @@
+<h1>GASTOS</h1>
+{% for gasto in expenses %}
+    <div>
+        <h2>{{gasto.descripcion}}</h2>
+        <h2>{{gasto.limit}}</h2>
+        <h2>{{gasto.category}}</h2>
+        <h2>{{gasto.date}}</h2>
+    
+    </div>
+{% endfor %}
+{% if expenses %}
+    <h2>Total gastos: {{total_expense}}</h2>
+{% else %}
+    <p>No hay gastos registrados</p>
+{% endif %}
