@@ -22,6 +22,9 @@ class ExpenseSerializer(serializers.ModelSerializer):
     total = serializers.DecimalField(
         max_digits=10, decimal_places=2, read_only=True
     )
+    total_pedidos = serializers.DecimalField(
+        max_digits=10, decimal_places=2, read_only=True
+    )
 
     class Meta:
         model = Expense
@@ -32,5 +35,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
             "limit",
             "date",
             "total",
+            "total_pedidos",
             "lines",
         )
