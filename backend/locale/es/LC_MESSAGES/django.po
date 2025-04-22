@@ -33,23 +33,23 @@ msgstr "Date"
 
 #: main/models.py:28
 msgid "Food"
-msgstr ""
+msgstr "Comida"
 
 #: main/models.py:29
 msgid "Transport"
-msgstr ""
+msgstr "Transporte"
 
 #: main/models.py:30
 msgid "Entertainment"
-msgstr ""
+msgstr "Entretenimiento"
 
 #: main/models.py:31
 msgid "Utilities"
-msgstr ""
+msgstr "Servicios"
 
 #: main/models.py:32
 msgid "Other"
-msgstr ""
+msgstr "Otros"
 
 #: main/models.py:34
 msgid "Category"

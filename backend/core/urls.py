@@ -18,8 +18,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main.views import index
+from main.api import ExpenseViewSet
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("gastos/", index, name="index"),
+    path("", index, name="lista_gastos"),
+    path(
+        "api/gastos/",
+        ExpenseViewSet.as_view({"get": "list", "post": "create"}),
+        name="lista_gastos_api",
+    ),
+    path(
+        "api/gastos/<int:pk>/",
+        ExpenseViewSet.as_view(
+            {"get": "retrieve", "put": "update", "delete": "destroy"}
+        ),
+        name="gasto_api",
+    ),
 ]
