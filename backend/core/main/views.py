@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.controllers import get_expenses,get_expenses_total
+from main.controllers import get_expenses,get_expenses_total,get_lines
 
 # Create your views here.
 
@@ -21,3 +21,11 @@ def index(request):
     #Le mando a la request la template con la informacion correspondiente en el contexto
     return  render(request, "index.html", context)
 
+
+#defino una funcion para mi vista que a parte del request debe recibir el parametro de expense de la url
+def lines(request, expense):
+    #llamo al controller como corresponde usando el parametro dado por la url para el filtrado
+    lines = get_lines(expense_pk=expense)
+    context = {"lines": lines}
+
+    return render(request, "lines.html", context)

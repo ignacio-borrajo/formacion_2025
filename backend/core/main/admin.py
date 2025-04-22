@@ -12,7 +12,6 @@ class ExpenseAdmin(admin.ModelAdmin):
     fields=(
         "descripcion",
         "limit",
-        
         "category"
     )
     list_display=(

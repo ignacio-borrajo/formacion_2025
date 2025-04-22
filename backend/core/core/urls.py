@@ -22,8 +22,10 @@ from django.urls import path
 #Para savar la pagina del cohete
 from django.views import debug
 
-#enruto mi view personalizada
+#importo mis views personalizada
 from main.views import index
+from main.views import lines
+
 
 urlpatterns = [
     #Enruto por defecto la pagina de django
@@ -32,4 +34,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #Enruto mi vista a la que llamo index para revisar los gastos
     path('gastos/',index,name="index"),
+    #Enruto mi vista a la que llamo
+    path("lines/<int:expense>/", lines, name="lista_lineas_gasto")
 ]

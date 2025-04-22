@@ -1,4 +1,4 @@
-from main.models import Expense
+from main.models import Expense,ExpenseLin
 from django.db.models import Sum
 
 #Utility para obtener un array con todas las expenses
@@ -17,6 +17,11 @@ def get_expenses_total():
    total=sum( i.total for i in Expense.objects.all().annotate(total=Sum("lines__amount")))
     
    return total
+
+#Cojo las lineas de la expense proporcionada
+def get_lines(expense_pk):
+    lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0)
+    return lines
 
 
 
