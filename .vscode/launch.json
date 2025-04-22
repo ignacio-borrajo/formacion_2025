@@ -1,0 +1,52 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Django",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/manage.py",
+            "args": [
+                "runserver",
+            ],
+            "django": true,
+            "justMyCode": false,
+            "python": "${workspaceFolder}/backend/.venv/bin/python",
+        },
+        {
+            "type": "node-terminal",
+            "name": "React",
+            "request": "launch",
+            "command": "npm start",
+            "cwd": "${workspaceFolder}/frontend"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug React",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "sourceMaps": true,
+            "trace": true,
+            "skipFiles": ["<node_internals>/**", "chrome-error://*"]
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "sourceMaps": true,
+            "skipFiles": ["<node_internals>/**", "chrome-error://*"]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Run App",
+            "configurations": [
+                "Django",
+                "React"
+            ]
+        }
+    ]
+}
