@@ -1,4 +1,3 @@
-from tabnanny import verbose
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -12,11 +11,11 @@ class Expense(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name =_("Date"))
     category = models.CharField(max_length=100, 
         choices=[
-            ('FOOD', 'Food'),
-            ('TRANS', 'Transport'),
-            ('ENTR', 'Entretainment'),
-            ('UTIL', 'Utilities'),
-            ('OTHR', 'Other'),
+            ('FOOD', _('Food')),
+            ('TRANS', _('Transport')),
+            ('ENTR', _('Entretainment')),
+            ('UTIL', _('Utilities')),
+            ('OTHR', _('Other')),
         ],
     verbose_name =_("Category"))
 
