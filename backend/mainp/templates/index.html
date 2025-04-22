@@ -1,5 +1,9 @@
 <h1>GASTOS</h1>
-
+{% if user.is_authenticated%}
+  <h4>Hola {{user.username}}!<br><a href="logout/">Logout</a></h4>
+{% else %}
+  <h4><a href="login/">Login</a></h4>
+{% endif %}
 {% for expense in expenses %}
   <div>
     <h2><a href="lines/{{ expense.id }}">{{ expense.description }}</a></h2>

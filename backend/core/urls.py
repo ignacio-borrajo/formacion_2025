@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from mainp.views import index, lines
 from mainp.api import ExpenseViewSet
+from users.views import login_view, logout_views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path("", index),
@@ -25,4 +27,8 @@ urlpatterns = [
     path("gastos/", index, name="lista_gastos"),
     path("api/gastos/<int:pk>/", ExpenseViewSet.as_view({"get":"list","post":"create"}), name="lista_gastos_api"),
     path("lines/<int:expense>/", ExpenseViewSet.as_view({"get":"retrieve","put":"update","delete":"destroy"}), name="gasto_api"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_views, name="logout"),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
