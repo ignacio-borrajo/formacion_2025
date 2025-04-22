@@ -5,7 +5,8 @@ from rest_framework import permissions
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-    queryset = get_expenses()
-    serializer_class = ExpenseSerializer
 
     permission_classes = [permissions.IsAuthenticated]
+
+    queryset = get_expenses()
+    serializer_class = ExpenseSerializer
