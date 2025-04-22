@@ -1,0 +1,11 @@
+<h1>Lineas</h1>
+
+{% for line in lines%}
+    <div class="line-item">
+        <h2>{{ line.name }}</h2>
+        <p>Description: {{ line.description }}</p>
+        <p>Amount: {{ line.amount }}</p>
+        <p>Date: {{ line.date }}</p>
+    </div>
+    <hr />
+{%end for%}

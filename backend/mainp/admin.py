@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from mainp.models import Expense
+from mainp.models import Expense, ExpenseLin
 
 class ExpenseAdmin(admin.ModelAdmin):
     fields = (
@@ -18,4 +17,23 @@ class ExpenseAdmin(admin.ModelAdmin):
     search_fields = ("description", "category")
     ordering = ("-date","description")
 
+
+class ExpenseLinAdmin(admin.ModelAdmin):
+    fields = (
+        "expense",
+        "description",
+        "amount",
+        "date",
+    )
+    list_display = (
+        "expense",
+        "description",
+        "amount",
+        "date",
+    )
+    list_filter = ("expense",)
+    search_fields = ("description",)
+    ordering = ("amount",)
+
 admin.site.register(Expense, ExpenseAdmin)
+admin.site.register(ExpenseLin, ExpenseLinAdmin)

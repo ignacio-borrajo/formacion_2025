@@ -27,8 +27,9 @@ class Expense(models.Model):
     def __str__(self):
         return f"{self.description} - {self.limit} - {self.date} - {self.category}"
     
-
-    class Category (models.Model):
-        pass
+    
     class ExpenseLin(models.Model):
-        pass
+        expense = models.ForeignKey(Expense, on_delete=models.CASCADE, related_name='lines',verbose_name =_("Expense"))
+        description = models.CharField(max_length=255,verbose_name =_("Description"))
+        amount = models.DecimalField(max_digits=10, decimal_places=2,verbose_name =_("Amount"))
+        date = models.DateField(verbose_name =_("Date"))
