@@ -23,3 +23,5 @@ def login_view(request):
 def logout_views(request):
     logout(request)
     return redirect('/login/')
+
+#crear tabla etiquetas para poner en los gastos si es mensual y tal
