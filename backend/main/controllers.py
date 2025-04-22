@@ -6,6 +6,7 @@ from django.db.models import Sum
 def get_expenses():
     expenses = Expense.objects.all().annotate(total=Sum("lines__amount"))
 
+
     return expenses
 
 

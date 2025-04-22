@@ -25,3 +25,5 @@ def lines(request, expense):
 
     return render(request, "lines.html", context)
 
+
+
