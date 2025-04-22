@@ -11,13 +11,15 @@ class ExpenseAdmin(admin.ModelAdmin):
     fields=(
         "descripcion",
         "limit",
-        "category"
+        "category",
+        "category2"
     )
     list_display=(
         "descripcion",
         "limit",
         "category",
-        "date"
+        "date",
+        "category2"
     )
     list_filter=("category","limit")
     search_fields=("description","category")
