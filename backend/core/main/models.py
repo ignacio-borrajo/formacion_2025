@@ -24,3 +24,21 @@ class Expense(models.Model):
 
     def __str__(self):
         return f"{self.descripcion} - {self.limit} - {self.date} - {self.category}"
+
+
+class Category(models.Model):
+    """
+    Modelo Representando la categoria a la que puede pertenecer un gasto
+    """
+    code=models.BigAutoField(primary_key=True)
+    name=models.CharField(max_length=40,unique=True,)
+    descripcion=models.CharField(max_length=255, verbose_name=("Description"))
+
+
+    class Meta:
+        verbose_name=("Category")
+        verbose_name_plural=("Categories")
+        
+   
+    def __str__(self):
+        return f"{self.name} - {self.code} - {self.descripcion}"
