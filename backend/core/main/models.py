@@ -36,13 +36,9 @@ class Expense(models.Model):
     descripcion=models.CharField(max_length=255, verbose_name=("Description"))
     limit=models.DecimalField(max_digits=10,decimal_places=2)
     date=models.DateField(auto_now_add=True)
-    category=models.CharField(max_length=100,choices=[
-        ('FOOD',_('Food')),
-        ('TRAN',_('Transport')),
-        ('ENTR',_('Entertainmente'))
-    ])
+  
 
-    category2=models.ForeignKey(Category,on_delete=models.CASCADE,default=Category.get_default_pk)
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,default=Category.get_default_pk)
 
     class Meta:
         verbose_name=("Expense")
