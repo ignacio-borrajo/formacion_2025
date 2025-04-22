@@ -18,11 +18,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main.views import index
+from users.views import login_view,logout_view
 from main.api import ExpenseViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
+    path("",index),
     path("admin/", admin.site.urls),
     path("api/gastos/",ExpenseViewSet.as_view({"get":"list"}),name="index"),
     path("api/gastos/<int:pk>",ExpenseViewSet.as_view({"get":"list","post":"create"}),name="index"),
     path("lines/<int:expense_pk_get>",ExpenseViewSet.as_view({"get":"list"}),name="lines"),
+
+
+    path("login/",login_view,name='login'),
+    path("logout/",logout_view,name='logout'),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     ]
