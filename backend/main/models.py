@@ -41,3 +41,36 @@ class Expense(models.Model):
 
     def __str__(self):
         return f"{self.description}"
+
+
+class ExpenseLin(models.Model):
+    """
+    Model representing an expense line.
+    """
+
+    expense = models.ForeignKey(
+        Expense,
+        on_delete=models.CASCADE,
+        related_name="lines",
+        verbose_name=_("Expense"),
+    )
+    description = models.CharField(
+        max_length=255,
+        verbose_name=_("Description"),
+    )
+    amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name=_("Amount"),
+    )
+    date = models.DateTimeField(
+        verbose_name=_("Date"),
+    )
+
+    class Meta:
+        verbose_name = _("Expense Line")
+        verbose_name_plural = _("Expense Lines")
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.description}"
