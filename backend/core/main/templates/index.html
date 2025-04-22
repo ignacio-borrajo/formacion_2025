@@ -1,13 +1,19 @@
 <h1>GASTOS</h1>
 {% for gasto in expenses %}
     <div>
-        <h2>{{gasto.descripcion}}</h2>
-        <h2>{{gasto.limit}}</h2>
-        <h2>{{gasto.category}}</h2>
-        <h2>{{gasto.date}}</h2>
-    
+        <h1>{{gasto.id}}</h1>
+        <ul>
+            <li><h2>{{gasto.descripcion}}</h2></li>
+            <li><h2>{{gasto.limit}}</h2></li>
+            <li><h2>{{gasto.category}}</h2></li>
+            <li><h2>{{gasto.date}}</h2></li>
+            <li><h2>Suma importe: {{gasto.total}}</h2></li>
+        </ul>
+        
     </div>
 {% endfor %}
+
+<hr></hr>
 {% if expenses %}
     <h2>Total gastos: {{total_expense}}</h2>
 {% else %}

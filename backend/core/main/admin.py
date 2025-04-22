@@ -4,6 +4,7 @@ from django.contrib import admin
 
 # Register your models here.
 from main.models import Expense
+from main.models import ExpenseLin
 from main.models import Category
 
 #Creo un admin para administrar el display de mi modelo
@@ -42,4 +43,20 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
+#Registro el modelo con su admin correspondiente
 admin.site.register(Category,CategoryAdmin)
+
+
+class ExpenseLinAdmin(admin.ModelAdmin):
+    list_display = (
+        "description",
+        "expense",
+        "amount",
+        "date",
+    )
+    list_filter = ("expense",)
+    search_fields = ("description",)
+    list_editable = ("amount",)
+
+#Registro el modelo con su admin correspondiente
+admin.site.register(ExpenseLin,ExpenseLinAdmin)
