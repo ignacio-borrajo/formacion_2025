@@ -3,14 +3,10 @@ from main.models import Expense, ExpenseLin, ExpenseTag
 
 
 class ExpenseAdmin(admin.ModelAdmin):
-    fields = (
-        "description",
-        "category",
-        "limit",
-        "tag",
-    )
+    fields = ("description", "category", "limit", "user")
     list_display = (
         "description",
+        "user",
         "category",
         "limit",
         "date",
@@ -19,6 +15,7 @@ class ExpenseAdmin(admin.ModelAdmin):
     list_filter = ("category", "limit")
     search_fields = ("description", "category")
     ordering = ("-date", "description")
+
 
 class ExpenseLinAdmin(admin.ModelAdmin):
     list_display = (
