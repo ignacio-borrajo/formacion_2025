@@ -74,3 +74,23 @@ class ExpenseLin(models.Model):
 
     def __str__(self):
         return f"{self.description}"
+    
+
+
+class Tags(models.Model):
+    """
+    Model representing a tag.
+    """
+    expense = models.ForeignKey(
+        Expense,
+        on_delete=models.CASCADE,
+        related_name="tags",
+        verbose_name=_("Expense"),
+    )
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+
+    def __str__(self):
+        return f"{self.name}"
