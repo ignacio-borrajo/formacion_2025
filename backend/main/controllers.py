@@ -1,10 +1,20 @@
 
 from main.models import Expense, ExpenseLin
-from django.db.models import Sum
+from django.db.models import Sum, Subquery
 
 
 def get_expenses():
-    expenses = Expense.objects.all().annotate(total=Sum("lines__amount"))
+    expenses = (
+        Expense.objects.all()
+        .annotate(total=Sum("lines__amount"))
+        .annotate(
+            total_pedidos=Subquery(
+                ExpenseLin.objects.values("expense")
+                .annotate(total=Sum("amount"))
+                .values("total")
+            )
+        )
+    )
 
 
     return expenses
