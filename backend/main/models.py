@@ -42,7 +42,7 @@ class Expense(models.Model):
         blank=True,
         null=True,
         related_name="expenses",
-        verbose_name="User",
+        verbose_name=_("User"),
     )
 
     objects = models.Manager()
