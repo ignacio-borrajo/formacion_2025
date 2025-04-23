@@ -2,6 +2,24 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
  
  
+class ExpenseTag(models.Model):
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("Name"),
+    )
+    description = models.CharField(
+        max_length=255,
+        verbose_name=_("Description"),
+    )
+ 
+    class Meta:
+        verbose_name = _("ExpenseTag")
+        verbose_name_plural = _("ExpensesTag")
+ 
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Expense(models.Model):
     """
     Model representing an expense.
@@ -17,6 +35,12 @@ class Expense(models.Model):
         blank=True,
         null=True,
         verbose_name=_("Limit"),
+    )
+    tag = models.ForeignKey(
+        ExpenseTag,
+        on_delete = models.CASCADE,
+        related_name = "tags",
+        verbose_name=_("ExpenseTag"),
     )
     date = models.DateTimeField(
         auto_now_add=True,
@@ -70,3 +94,4 @@ class ExpenseLin(models.Model):
  
     def __str__(self):
         return f"{self.description}"
+   
