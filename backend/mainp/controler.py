@@ -4,7 +4,7 @@ from django.db.models import Q
 def get_expenses(connected_user):
 
     if connected_user.is_authenticated:
-        expenses = (Expense.objects.filter(
+        expenses = (Expense.with_totals.filter(
             Q(Q(user__isnull=True) | Q(user=connected_user))
             )
         )

@@ -6,7 +6,7 @@ from rest_framework import permissions
 
 class ExpenseViewSet(viewsets.ModelViewSet):
 
-    serialize_class = ExpenseSerializer
+    serializer_class = ExpenseSerializer
 
     def get_queryset(self):
         query = get_expenses(self.request.user)

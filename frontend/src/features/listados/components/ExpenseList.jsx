@@ -1,38 +1,40 @@
+import React from "react";
 import ItemList from "./itemList";
+import useFetchExpenses from "../hooks/useFetchExpense";
 
-const ExpenseList = () => {
+const ExpenseList = ({ onSearch = () => {} }) => {
+  const [expenses, setExpenses] = React.useState([]);
+  const [inputValue, setInputValue] = React.useState("");
 
-const datos = [{
-    "id" : 1,
-    "description" : "Gasto 1",
-    "limit" : 100,
-    "category" : "FOOD",
-    "total" : 45.3,
-    "date" : "2025-04-22T12:02:00Z"
-}];
+  const { response, error, loading } = useFetchExpenses();
 
+  React.useEffect(() => {
+    if (response) {
+      setExpenses(response);
+    }
+  }, [response]);
 
-const [expenses, setExpenses] = React.useState([]);
-const [intpuValue, setInputValue] = React.useState("");
-
-
-const handleChange = (e) => {
+  const handleChange = (e) => {
     setInputValue(e.target.value);
-}
+  };
 
-const handleClick = () => {
-    console.log(inputValue)
-}
+  const handleClick = () => {
+    onSearch(inputValue);
+  };
 
-return (
+  return error ? (
+    <h4>Se ha producido un error</h4>
+  ) : loading ? (
+    <h4>Cargando...</h4>
+  ) : (
     <div className="listado-gastos">
-        <input type="text" placeholder="Bucar" value={intpuValue} onChange={handleChange}></input>
-        {expenses.map((dato) => {
-        return (
-          <ItemList key={dato.id} dato={dato} />
-        );
+      <input type="text" placeholder="Buscar" value={inputValue} onChange={handleChange} />
+      <button onClick={handleClick}>Buscar</button>
+      {expenses?.map((dato) => {
+        return <ItemList key={dato.id} dato={dato} search={inputValue} />;
       })}
     </div>
-);
-}
+  );
+};
+
 export default ExpenseList;

@@ -29,11 +29,10 @@ class ExpenseSerializer(serializers.ModelSerializer):
             'lines',
         )
     def to_representation(self, instance):
-        print(instance.to_description)
         
         ret = super().to_representation(instance)
 
-        instance["d.category"] = (
+        ret["d_category"] = (
             "Comida" if instance.category == "FOOD" else "No se"
         )
 
