@@ -10,19 +10,19 @@ from main.models import Category
 #Creo un admin para administrar el display de mi modelo
 class ExpenseAdmin(admin.ModelAdmin):
     fields=(
-        "descripcion",
+        "description",
         "limit",
         "category"
     )
     list_display=(
-        "descripcion",
+        "description",
         "limit",
         "date",
         "category"
     )
     list_filter=("category","limit")
     search_fields=("description","category")
-    ordering=("-date","descripcion")
+    ordering=("-date","description")
 
 #Registro el modelo con su admin correspondiente
 admin.site.register(Expense,ExpenseAdmin)
@@ -33,12 +33,12 @@ class CategoryAdmin(admin.ModelAdmin):
     fields=(
         "name",
         "code",
-        "descripcion"
+        "description"
     )
     list_display=(
         "name",
         "code",
-        "descripcion"
+        "description"
     )
 
 

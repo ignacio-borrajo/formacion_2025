@@ -20,7 +20,8 @@ def get_expenses_total():
 
 #Cojo las lineas de la expense proporcionada
 def get_lines(expense_pk):
-    lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0)
+    #Filtro por las lineas de la expense deseada con amount>0
+    lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0) 
     return lines
 
 

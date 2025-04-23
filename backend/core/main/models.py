@@ -9,13 +9,13 @@ class Category(models.Model):
     """
     code=models.BigAutoField(primary_key=True)
     name=models.CharField(max_length=40,unique=True,)
-    descripcion=models.CharField(max_length=255, verbose_name=("Description"))
+    description=models.CharField(max_length=255, verbose_name=("Description"))
 
     @classmethod
     def get_default_pk(cls):
         category,create = cls.objects.get_or_create(
             name="Base",
-            descripcion="Falta Categoria por defecto"
+            description="Falta Categoria por defecto"
         )
         return category.code
 
@@ -26,14 +26,14 @@ class Category(models.Model):
         
    
     def __str__(self):
-        return f"{self.name} - {self.code} - {self.descripcion}"
+        return f"{self.name} - {self.code} - {self.description}"
 
 class Expense(models.Model):
     """
     Model representando un gasto
     """
 
-    descripcion=models.CharField(max_length=255, verbose_name=("Description"))
+    description=models.CharField(max_length=255, verbose_name=("Description"))
     limit=models.DecimalField(max_digits=10,decimal_places=2)
     date=models.DateField(auto_now_add=True)
   
@@ -47,7 +47,7 @@ class Expense(models.Model):
         
 
     def __str__(self):
-        return f"{self.descripcion} - {self.limit} - {self.date} - {self.category}"
+        return f"{self.description} - {self.limit} - {self.date} - {self.category}"
     
 
 class ExpenseLin(models.Model):

@@ -16,7 +16,7 @@ Including another URLconf
 """
 #Por defecto en django viene así
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 
 
 #Para savar la pagina del cohete
@@ -25,6 +25,9 @@ from django.views import debug
 #importo mis views personalizada
 from main.views import index
 from main.views import lines
+
+#importo api
+from main.api import ExpenseViewSet
 
 
 urlpatterns = [
@@ -35,5 +38,19 @@ urlpatterns = [
     #Enruto mi vista a la que llamo index para revisar los gastos
     path('gastos/',index,name="index"),
     #Enruto mi vista a la que llamo
-    path("lines/<int:expense>/", lines, name="lista_lineas_gasto")
+    path("lines/<int:expense>/", lines, name="lista_lineas_gasto"),
+    
+    #Rutas api
+    path(
+        "api/gastos/",
+        ExpenseViewSet.as_view({"get": "list", "post": "create"}),
+        name="lista_gastos_api",
+    ),
+    path(
+        "api/gastos/<int:pk>/",
+        ExpenseViewSet.as_view(
+            {"get": "retrieve", "put": "update", "delete": "destroy"}
+        ),
+        name="gasto_api",
+    )
 ]
