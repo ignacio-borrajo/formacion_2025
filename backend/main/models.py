@@ -1,6 +1,25 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+class ExpenseTag(models.Model):
+
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("Name"),
+    )
+    description = models.CharField(
+        max_length=255,
+        verbose_name=_("description"),
+    )
+
+    class Meta:
+        verbose_name = _("ExpenseTag")
+        verbose_name_plural = _("ExpenseTag")
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Expense(models.Model):
     """
@@ -32,6 +51,13 @@ class Expense(models.Model):
             ("OTHR", _("Other")),
         ],
         verbose_name=_("Category"),
+    )
+
+    tag = models.ForeignKey(
+        ExpenseTag,
+        on_delete = models.CASCADE,
+        related_name = "tag",
+        verbose_name=_("tag"),
     )
 
     class Meta:
