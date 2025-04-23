@@ -18,14 +18,18 @@ def index(request):
     #En el contexto meto un diccionario
     context={"expenses":expenses,"total_expense":total_pedidos}
 
-    #Le mando a la request la template con la informacion correspondiente en el contexto
+    #Renderizo la template (Mi response) con la informacion correspondiente en el contexto (Y la request va tambien por si quiero que me mande cosas)
     return  render(request, "index.html", context)
 
 
 #defino una funcion para mi vista que a parte del request debe recibir el parametro de expense de la url
 def lines(request, expense):
+
     #llamo al controller como corresponde usando el parametro dado por la url para el filtrado
     lines = get_lines(expense_pk=expense)
+
+    #Meto en el contexto en un diccionario los datos que necesito
     context = {"lines": lines}
 
+    #renderizo la template (Mi response) con los datos necesarios en el contexto (Y la request va tambien)
     return render(request, "lines.html", context)

@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-# Create your models here.
+from main.managers import ExpenseManager
 
+#Modelizacion de los datos con ayuda del orm de django
 
 class Category(models.Model):
     """
@@ -40,6 +41,10 @@ class Expense(models.Model):
 
     category=models.ForeignKey(Category,on_delete=models.CASCADE,default=Category.get_default_pk)
 
+    #Managers personalizados, importante redefinir el original
+    objects=models.Manager()
+    with_totals = ExpenseManager()
+
     class Meta:
         verbose_name=("Expense")
         verbose_name_plural=("Expense")
@@ -74,6 +79,8 @@ class ExpenseLin(models.Model):
     date = models.DateTimeField(
         verbose_name=_("Date"),
     )
+
+    
 
     class Meta:
         verbose_name = _("Expense Line")

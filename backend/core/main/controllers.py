@@ -1,21 +1,22 @@
 from main.models import Expense,ExpenseLin
 from django.db.models import Sum
 
-#Utility para obtener un array con todas las expenses
+#Utility para obtener un array con todas las expenses y total de la suma de sus amount de linea
 def get_expenses():
 
-    #En el controlador usando el related_name hace un "join" y suma los 
-    # amount de las lineas del pedido guardadolo como total
-    expenses=Expense.objects.all().annotate(total=Sum("lines__amount"))
+   
+    #Cojo las expenses del manager con los totales de expense line calculados
+    expenses=Expense.with_totals.all()
 
+    # los devuelvo
     return expenses
 
 #Alternativa en funcion
 def get_expenses_total():
 
-   
-   total=sum( i.total for i in Expense.objects.all().annotate(total=Sum("lines__amount")))
-    
+   #Para hacer el sumatorio total de tdos loa amount de las expenses. Va con ternaria para evitar none types
+   total=sum( (i.total if i.total is not None else 0) for i in Expense.objects.all().annotate(total=Sum("lines__amount")))
+    #Podría hacerse con el custom manager withtotals
    return total
 
 #Cojo las lineas de la expense proporcionada
