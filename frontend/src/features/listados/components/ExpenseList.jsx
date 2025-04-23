@@ -30,7 +30,7 @@ const ExpenseList = ({ onSearch = () => {} }) => {
     <div className="listado-gastos">
       <input type="text" placeholder="Buscar" value={inputValue} onChange={handleChange} />
       <button onClick={handleClick}>Buscar</button>
-      {expenses.map((dato) => {
+      {expenses?.map((dato) => {
         return <ItemList key={dato.id} dato={dato} search={inputValue} />;
       })}
     </div>
