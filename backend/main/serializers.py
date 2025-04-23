@@ -27,8 +27,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
     """
 
     lines = ExpenseLinSerializer(many=True, required=False)
-    tag = ExpenseTagSerializer(required=False)
-
     total = serializers.DecimalField(
         max_digits=10, decimal_places=2, read_only=True
     )
@@ -43,7 +41,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
             "description",
             "category",
             "limit",
-            "tag",
             "date",
             "total",
             "total_pedidos",

@@ -1,7 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
- 
- 
+from django.contrib.auth import get_user_model
+from main.managers import ExpenseManager
+
+UserModel = get_user_model()
+
 class ExpenseTag(models.Model):
     name = models.CharField(
         max_length=255,
@@ -19,12 +22,11 @@ class ExpenseTag(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-
 class Expense(models.Model):
     """
     Model representing an expense.
     """
- 
+
     description = models.CharField(
         max_length=255,
         verbose_name=_("Description"),
@@ -35,12 +37,6 @@ class Expense(models.Model):
         blank=True,
         null=True,
         verbose_name=_("Limit"),
-    )
-    tag = models.ForeignKey(
-        ExpenseTag,
-        on_delete = models.CASCADE,
-        related_name = "tags",
-        verbose_name=_("ExpenseTag"),
     )
     date = models.DateTimeField(
         auto_now_add=True,
@@ -57,22 +53,36 @@ class Expense(models.Model):
         ],
         verbose_name=_("Category"),
     )
- 
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="expenses",
+        verbose_name=_("Usuario"),
+    )
+
+    objects = models.Manager()
+    with_totals = ExpenseManager()
+
     class Meta:
         verbose_name = _("Expense")
         verbose_name_plural = _("Expenses")
         ordering = ["-date"]
- 
+
     def __str__(self):
         return f"{self.description}"
- 
- 
+
+
 class ExpenseLin(models.Model):
-   
+    """
+    Model representing an expense line.
+    """
+
     expense = models.ForeignKey(
         Expense,
-        on_delete = models.CASCADE,
-        related_name = "lines",
+        on_delete=models.CASCADE,
+        related_name="lines",
         verbose_name=_("Expense"),
     )
     description = models.CharField(
@@ -84,14 +94,14 @@ class ExpenseLin(models.Model):
         decimal_places=2,
         verbose_name=_("Amount"),
     )
-    date = models.DateField(
+    date = models.DateTimeField(
         verbose_name=_("Date"),
     )
- 
+
     class Meta:
-        verbose_name = _("ExpenseLin")
-        verbose_name_plural = _("ExpensesLin")
- 
+        verbose_name = _("Expense Line")
+        verbose_name_plural = _("Expense Lines")
+        ordering = ["-date"]
+
     def __str__(self):
         return f"{self.description}"
-   
