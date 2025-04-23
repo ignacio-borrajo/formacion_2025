@@ -15,6 +15,7 @@ class ExpenseAdmin(admin.ModelAdmin):
         "category",
         "limit",
         "date",
+        "user",
     )
     list_filter = ("category", "limit")
     search_fields = ("description", "category")
