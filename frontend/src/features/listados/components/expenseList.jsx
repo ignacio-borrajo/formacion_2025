@@ -4,7 +4,7 @@ import useFetchExpense from "../hooks/useFetchExpense"
 
 function ExpenseList(){
 
-        const[response,loading,error]=useFetchExpense()
+      const[response,loading,error]=useFetchExpense()
 
       const [expenses,setExpenses]=React.useState([])
 

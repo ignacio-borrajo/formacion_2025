@@ -3,15 +3,29 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Expenses from './features/listados/pages/Expenses'
+import Login from './features/users/components/login'
+
+import { BrowserRouter, Route,  Routes } from 'react-router-dom'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
 
 
   return (
-    <Expenses/>
+    <BrowserRouter>
+    
+      <Routes>
+        <Route path='#' element={<Expenses/>}/>
+        <Route path='/' element={<Expenses/>}/>
+        <Route path='/login' element={<Login/>}/>
+        
+
+
+      </Routes>
+    
+    </BrowserRouter>
   )
 }
 
