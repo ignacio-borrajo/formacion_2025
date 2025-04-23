@@ -1,9 +1,17 @@
 from mainp.models import Expense, ExpenseLin
-from django.db.models import Sum
+from django.db.models import Q
 
-def get_expenses():
-    expenses = Expense.objects.all().annotate(total=Sum('lines__amount'))
+def get_expenses(connected_user):
 
+    if connected_user.is_authenticated:
+        expenses = (Expense.objects.filter(
+            Q(Q(user__isnull=True) | Q(user=connected_user))
+            )
+        )
+    else:
+        expenses = (Expense.with_totals.filter(user__isnull=True)
+    )
+        
     return expenses
 
 def get_lines(expense_pk):

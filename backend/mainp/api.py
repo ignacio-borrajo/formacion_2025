@@ -5,7 +5,11 @@ from rest_framework import permissions
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-    queryset = get_expenses()
+
     serialize_class = ExpenseSerializer
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    def get_queryset(self):
+        query = get_expenses(self.request.user)
+        return query
+
+    

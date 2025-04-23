@@ -139,7 +139,6 @@ REST_FRAMEWORK = {
         "core.api_auth.CustomAuth",
         ),
     'DEFAULT_PERMISSION_CLASSES': [
-        #'core.api_auth.CustmoAuth',
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ]
 }

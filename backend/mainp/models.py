@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
+from mainp.mangers import ExpenseManager
 
+UserModel = get_user_model()
 
 class Expense(models.Model):
     """
@@ -33,6 +36,19 @@ class Expense(models.Model):
         ],
         verbose_name=_("Category"),
     )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="expenses",
+        verbose_name=_("User"),
+    )
+
+    objects = models.Manager()
+    with_totals = ExpenseManager()
+    
 
     class Meta:
         verbose_name = _("Expense")
@@ -75,22 +91,3 @@ class ExpenseLin(models.Model):
     def __str__(self):
         return f"{self.description}"
     
-
-
-class Tags(models.Model):
-    """
-    Model representing a tag.
-    """
-    expense = models.ForeignKey(
-        Expense,
-        on_delete=models.CASCADE,
-        related_name="tags",
-        verbose_name=_("Expense"),
-    )
-
-    class Meta:
-        verbose_name = _("Tag")
-        verbose_name_plural = _("Tags")
-
-    def __str__(self):
-        return f"{self.name}"

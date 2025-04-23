@@ -6,9 +6,11 @@ class ExpenseAdmin(admin.ModelAdmin):
         "description",
         "category",
         "limit",
+        "user",
     )
     list_display = (
         "description",
+        "user",
         "category",
         "limit",
         "date",

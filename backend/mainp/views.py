@@ -7,7 +7,9 @@ def index(request):
     View function for the index page.
     """
 
-    expenses = get_expenses()
+    user = request.user
+
+    expenses = get_expenses(user)
 
     query = expenses.aggregate(total_expense=Sum('total'))
     total_expense = query["total_expense"]
