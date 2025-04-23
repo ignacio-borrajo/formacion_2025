@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../../../api/api";
 
 const useFetchExpenses = () => {
   const [response, setResponse] = React.useState([]);
@@ -9,10 +10,10 @@ const useFetchExpenses = () => {
     setLoading(true);
     setError(null);
 
-    fetch("http://localhost:8000/api/gastos/")
-      .then((response) => response.json())
-      .then((data) => {
-        setResponse(data);
+    api
+      .get("gastos/")
+      .then((response) => {
+        setResponse(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
