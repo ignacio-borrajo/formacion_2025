@@ -4,14 +4,16 @@ import useFetchExpense from "../hooks/useFetchExpense"
 
 function ExpenseList(){
 
-      const[response,loading,error]=useFetchExpense()
+      const{response,loading,error}=useFetchExpense()
 
       const [expenses,setExpenses]=React.useState([])
 
-      React.useEffect(()=>{
-        response ? setExpenses(response) :console.log(error)
-
-      },[response])
+      React.useEffect(() => {
+        if (response) {
+            console.log("Expenses seteandose")
+          setExpenses(response);
+        }
+      }, [response]);
 
       
 
@@ -22,10 +24,10 @@ function ExpenseList(){
      <div className="listado-gastos">
     {
 
-      expenses.map((expense)=>{
-        return <div key={expense.id}>
+      expenses.map((expenses)=>{
+        return <div key={expenses.id}>
           
-          <ItemList dato={expense}/>
+          <ItemList dato={expenses}/>
         </div>
       }
     )}

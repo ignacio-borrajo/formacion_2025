@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'main' #Mi app principal
 ]
 
+#Cors problem
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
