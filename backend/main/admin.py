@@ -3,13 +3,10 @@ from main.models import Expense, ExpenseLin
 
 
 class ExpenseAdmin(admin.ModelAdmin):
-    fields = (
-        "description",
-        "category",
-        "limit",
-    )
+    fields = ("description", "category", "limit", "user")
     list_display = (
         "description",
+        "user",
         "category",
         "limit",
         "date",
