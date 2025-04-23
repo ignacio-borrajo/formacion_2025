@@ -38,3 +38,13 @@ class ExpenseSerializer(serializers.ModelSerializer):
             "total_pedidos",
             "lines",
         )
+
+    def to_representation(self, instance):
+
+        print(instance.description)
+
+        ret = super().to_representation(instance)
+
+        ret["d_category"] = ("Comida" if instance.category == "FOOD" else "No sé")
+
+        return ret

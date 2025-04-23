@@ -1,5 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
+from main.managers import ExpenseManager
+
+UserModel = get_user_model()
 
 
 class Expense(models.Model):
@@ -33,6 +37,18 @@ class Expense(models.Model):
         ],
         verbose_name=_("Category"),
     )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="expenses",
+        verbose_name=_("Usuario"),
+    )
+    
+    objects = models.Manager()
+    with_totals = ExpenseManager()
 
     class Meta:
         verbose_name = _("Expense")

@@ -1,22 +1,16 @@
 
 from main.models import Expense, ExpenseLin
-from django.db.models import Sum, Subquery
+from django.db.models import Sum, Subquery, Q
 
 
-def get_expenses():
-    expenses = (
-        Expense.objects.all()
-        .annotate(total=Sum("lines__amount"))
-        .annotate(
-            total_pedidos=Subquery(
-                ExpenseLin.objects.values("expense")
-                .annotate(total=Sum("amount"))
-                .values("total")
-            )
-        )
-    )
+def get_expenses(connected_user):
 
-
+    if connected_user.is_authenticated:
+        expenses = Expense.objects.filter(
+            Q(user__isnull=True) | Q(user=connected_user))
+    else:
+        expenses = Expense.objects.filter(user__isnull=True)
+    
     return expenses
 
 
