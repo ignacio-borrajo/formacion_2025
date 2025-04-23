@@ -65,3 +65,25 @@ class ExpenseLin(models.Model):
         ordering = ["-date"]
     def __str__(self):
         return f"{self.description}"
+
+class Tags(models.Model):
+    expenselin = models.ForeignKey(
+        ExpenseLin,
+        on_delete=models.CASCADE,
+        related_name="lines"
+    )
+
+    mensual = models.CharField(
+        max_length=1,
+        choices=[
+            ("Y", _("Yes")),
+            ("N", _("No")),
+        ],
+        verbose_name=_("Tag"),
+    )
+
+    class Meta:
+        verbose_name=_("Tag")
+        verbose_name_plural=_("Tags")
+    def __str__(self):
+        return f"{self.mensual}"

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AnnonymousUser
+from django.contrib.auth.models import AnonymousUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class CustomAuth(JWTAuthentication):
