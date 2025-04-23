@@ -26,6 +26,8 @@ from django.views import debug
 from main.views import index
 from main.views import lines
 
+from users.views import login_view, logout_view
+
 #importo api
 from main.api import ExpenseViewSet
 
@@ -52,5 +54,9 @@ urlpatterns = [
             {"get": "retrieve", "put": "update", "delete": "destroy"}
         ),
         name="gasto_api",
-    )
+    ),
+
+    #Rutas que redirigen hacia las vistas para el login y el logout
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
 ]
