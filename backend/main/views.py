@@ -6,7 +6,8 @@ def index(request):
     """
     View function for the index page.
     """
-    expenses = get_expenses()
+    user = request.user
+    expenses = get_expenses(connected_user=user)
     total = expenses.aggregate(total=Sum("total"))["total"]
     context = {"expenses": expenses, "total_expense": total}
 

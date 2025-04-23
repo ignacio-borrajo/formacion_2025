@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from main.models import Expense,ExpenseLin
 
+
 class ExpenseLinSerialize(serializers.ModelSerializer):
     class Meta:
-        model = Expense
+        model = ExpenseLin
         fields = (
             ['id', 'amount', 'description', 'date']
         )
@@ -16,3 +17,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
         fields = (
             ['id', 'limit', 'description', 'date','category','expense_lines','total']
         )
+
+    def to_representation(self,instance):
+        print(instance.description)
+        instance["d_category"] = ("Comida" if instance.category =="FOOD" else "nose")
+        return super().to_representation(instance)

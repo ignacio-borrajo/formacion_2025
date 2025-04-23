@@ -4,7 +4,10 @@ from main.serialize import ExpenseSerializer
 from rest_framework import permissions
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-    queryset = get_expenses()
-    serializer_class = ExpenseSerializer
-
     permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        query=get_expenses(connected_user=self.request.user)
+        return query
+    
+    serializer_class = ExpenseSerializer

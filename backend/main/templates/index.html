@@ -1,5 +1,7 @@
 <h1>GASTOS</h1>
-
+{% if user.is_authenicated%}
+<p>Bienvenido, {{ user.name }}!</p>
+{% endif %}
 {% for expense in expenses %}
   <div>
     <h2>{{ expense.description }}</h2>
