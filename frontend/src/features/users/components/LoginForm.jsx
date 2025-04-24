@@ -1,6 +1,8 @@
 import React from "react";
 import api from "../../../api/api";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -29,13 +31,12 @@ const LoginForm = () => {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => {
-          setUsername(e.target.value);
-        }}
+      <TextField 
+        id="username" 
+        label="Usuario" 
+        variant ="standard" 
+        value={username} 
+        onChange={(e) => {setUsername(e.target.value);}}
       />
       <input
         type="password"
@@ -45,7 +46,7 @@ const LoginForm = () => {
           setPassword(e.target.value);
         }}
       />
-      <button onClick={handleClick}>Login</button>
+      <Button variant='contained' onClick={handleClick}>Login</Button>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </>
   );
