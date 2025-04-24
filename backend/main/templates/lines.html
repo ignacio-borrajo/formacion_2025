@@ -1,10 +1,18 @@
 <h1>Líneas</h1>
-
+<form method="get">
+    <input type="text" name="tag" placeholder="Introduce Tag..." />
+    <button type="submit">BUSCAR</button>
+</form>
 {% for line in lines %}
     <div class="line">
         <h2>{{line.description}}</h2>
         <p>Cantidad: {{ line.amount }}</p>
         <p>Fecha: {{ line.date }}</p>
+        <p>Tags: 
+            {% for tag in line.tag.all %}
+                {{ tag.name }},
+            {% endfor %}
+        </p>
     </div>
     <hr />
 {% endfor %}
