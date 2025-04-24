@@ -53,6 +53,8 @@ urlpatterns = [
     path(
         "api/gastos/",
         ExpenseViewSet.as_view({"get": "list", "post": "create"}),
+        # Convierte la clase en una funcion el as_view
+        # Que reacciona apropiadamente al verbo usado
         name="lista_gastos_api",
     ),
     path(
