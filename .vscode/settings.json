@@ -1,0 +1,40 @@
+{
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "black-formatter.args": ["--line-length", "79"],
+    "isort.check": true,
+    "isort.args": ["--profile", "black"],
+    "prettier.printWidth": 160,
+    "python.analysis.inlayHints.callArgumentNames": "off",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.pytestParameters": false,
+    "python.analysis.inlayHints.variableTypes": true,
+    "github-actions.workflows.pinned.workflows": [
+      "backend/.github/workflows/CI.yml"
+    ],
+    //"python.envFile": "${workspaceFolder}/backend/portales/local.env",
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.testing.cwd": "${workspaceFolder}/backend/portales",
+    "editor.rulers": [80],
+    "todohighlight.include": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.html",
+      "**/*.php",
+      "**/*.css",
+      "**/*.scss",
+      "**/*.py"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "pylint.enabled": false,
+    "python.analysis.enablePytestSupport": false,
+  }

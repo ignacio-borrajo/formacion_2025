@@ -57,7 +57,30 @@ class Expense(models.Model):
     def __str__(self):
         return f"{self.description}"
 
+class ExpenseTag(models.Model):
+    """
+    Tag model for expense lines, private to each user.
+    """
+    name = models.CharField(
+        max_length=50,
+        verbose_name=_("Name"),
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="expense_tags",
+        verbose_name=_("User"),
+    )
 
+    class Meta:
+        verbose_name = _("Expense Tag")
+        verbose_name_plural = _("Expense Tags")
+        unique_together = ("name", "user")
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+    
 class ExpenseLin(models.Model):
     """
     Model representing an expense line.
@@ -80,6 +103,12 @@ class ExpenseLin(models.Model):
     )
     date = models.DateTimeField(
         verbose_name=_("Date"),
+    )
+    tags = models.ManyToManyField(
+        ExpenseTag,
+        related_name="expense_lines",
+        blank=True,
+        verbose_name=_("Tags"),
     )
 
     class Meta:
