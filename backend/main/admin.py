@@ -22,16 +22,21 @@ class ExpenseLinAdmin(admin.ModelAdmin):
         "expense",
         "amount",
         "date",
+        "get_tags"
     )
     list_filter = ("expense",)
     search_fields = ("description",)
     list_editable = ("amount",)
+
+    def get_tags(self, obj):
+        return ", ".join([tag.name for tag in obj.tag.all()])
 
 
 class ExpenseTagAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "description",
+        "user"
     )
 
 admin.site.register(Expense, ExpenseAdmin)

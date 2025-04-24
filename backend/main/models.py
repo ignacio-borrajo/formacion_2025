@@ -3,6 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from main.managers import ExpenseManager
 
+UserModel = get_user_model()
+
 class ExpenseTag(models.Model):
 
     name = models.CharField(
@@ -13,6 +15,12 @@ class ExpenseTag(models.Model):
         max_length=255,
         verbose_name=_("description"),
     )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="expensestag",
+        verbose_name=_("Usuario"),
+    )
 
     class Meta:
         verbose_name = _("ExpenseTag")
@@ -21,11 +29,7 @@ class ExpenseTag(models.Model):
 
     def __str__(self):
         return f"{self.name}"
-
-
-UserModel = get_user_model()
-
-
+    
 class Expense(models.Model):
     """
     Model representing an expense.
@@ -100,6 +104,14 @@ class ExpenseLin(models.Model):
     )
     date = models.DateTimeField(
         verbose_name=_("Date"),
+    )
+    tag = models.ManyToManyField(
+        ExpenseTag,
+        blank=True,
+        null=True,
+        related_name="tag",
+        verbose_name=_("Tag"),
+
     )
 
     class Meta:

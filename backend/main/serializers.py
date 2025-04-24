@@ -2,16 +2,6 @@ from rest_framework import serializers
 from main.models import Expense, ExpenseLin, ExpenseTag
 
 
-class ExpenseLinSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExpenseLin
-        fields = (
-            "id",
-            "description",
-            "amount",
-            "date",
-        )
-
 class ExpenseTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpenseTag
@@ -20,14 +10,23 @@ class ExpenseTagSerializer(serializers.ModelSerializer):
             "description",
         )
 
-
+class ExpenseLinSerializer(serializers.ModelSerializer):
+    tag = ExpenseTagSerializer(many=True, required=False)
+    class Meta:
+        model = ExpenseLin
+        fields = (
+            "id",
+            "description",
+            "amount",
+            "date",
+            "tag"
+        )
 class ExpenseSerializer(serializers.ModelSerializer):
     """
     Serializer for the Expense model.
     """
 
     lines = ExpenseLinSerializer(many=True, required=False)
-    #tag = ExpenseTagSerializer(required=False)
 
     total = serializers.DecimalField(
         max_digits=10, decimal_places=2, read_only=True

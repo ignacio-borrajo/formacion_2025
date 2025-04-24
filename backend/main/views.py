@@ -22,7 +22,7 @@ def index(request):
 
 
 def lines(request, expense):
-    lines = get_lines(expense_pk=expense)
+    lines = get_lines(request, expense_pk=expense)
     context = {"lines": lines}
 
     return render(request, "lines.html", context)
