@@ -2,6 +2,10 @@ import React from "react";
 import api from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 const LoginForm = () => {
   const navigate = useNavigate();
 
@@ -28,26 +32,37 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <input
-        type="text"
-        placeholder="Username"
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      <TextField
+        id="username"
+        label="Usuario"
+        variant="standard"
         value={username}
         onChange={(e) => {
           setUsername(e.target.value);
         }}
       />
-      <input
+      <TextField
+        id="password"
+        label="Contraseña"
+        variant="standard"
         type="password"
-        placeholder="Password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
         }}
       />
-      <button onClick={handleClick}>Login</button>
+      <Button variant="contained" onClick={handleClick}>
+        Login
+      </Button>
       {error && <p style={{ color: "red" }}>{error}</p>}
-    </>
+    </Box>
   );
 };
 
