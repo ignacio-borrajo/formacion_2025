@@ -59,4 +59,7 @@ urlpatterns = [
     #Rutas que redirigen hacia las vistas para el login y el logout
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
+
+
+    #Nota, los names es como referencio a las url desde las templates
 ]
