@@ -23,7 +23,7 @@ def lines(request, expense):
     View function for the lines page.
     """
 
-    lines = get_expenses(expense_pk=expense)
+    lines = get_lines(expense_pk=expense)
     context = {"lines": lines}
 
     return render(request, "lines.html", context)
