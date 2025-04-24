@@ -1,5 +1,6 @@
 import React from "react";
 import ExpenseList from "../components/ExpenseList";
+import {Box,Typography} from "@mui/material";
 
 const Expenses = () => {
   const handleSearch = (searchTerm) => {
@@ -7,10 +8,12 @@ const Expenses = () => {
   };
 
   return (
-    <>
-      <h1>GASTOS</h1>
+    <Box sx={{
+          margin: 3
+        }}>
+      <Typography variant="h1">GASTOS</Typography>
       <ExpenseList onSearch={handleSearch} />
-    </>
+    </Box>
   );
 };
 

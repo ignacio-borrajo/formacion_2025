@@ -1,6 +1,7 @@
 import React from "react";
 import ItemList from "./ItemList";
 import useFetchExpenses from "../hooks/useFetchExpense";
+import {Typography, Box, TextField, Button} from "@mui/material";
 
 const ExpenseList = ({ onSearch = () => {} }) => {
   const [expenses, setExpenses] = React.useState([]);
@@ -23,17 +24,23 @@ const ExpenseList = ({ onSearch = () => {} }) => {
   };
 
   return error ? (
-    <h4>Se ha producido un error</h4>
+    <Typography variant="h4">Se ha producido un error</Typography>
   ) : loading ? (
-    <h4>Cargando...</h4>
+    <Typography variant="h4">Cargando...</Typography>
   ) : (
-    <div className="listado-gastos">
-      <input type="text" placeholder="Buscar" value={inputValue} onChange={handleChange} />
-      <button onClick={handleClick}>Buscar</button>
+    <Box className="listado-gastos"sx={{
+        display:"flex",
+        flexDirection: "column",
+        alignItems: "center"
+      }}>
+      <Box sx={{display:"flex"}}>
+        <TextField id="search" label="Buscar" variant="filled" value={inputValue} onChange={handleChange}  sx={{marginRight: 1}}/>
+        <Button variant="contained" onClick={handleClick}>Buscar</Button>
+      </Box>
       {expenses?.map((dato) => {
         return <ItemList key={dato.id} dato={dato} search={inputValue} />;
       })}
-    </div>
+    </Box>
   );
 };
 

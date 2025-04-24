@@ -1,4 +1,5 @@
 import React from "react";
+import {Box,Typography} from "@mui/material";
 
 const ItemList = ({ dato, search }) => {
   const [expense, setExpense] = React.useState();
@@ -8,15 +9,17 @@ const ItemList = ({ dato, search }) => {
   }, [dato]);
 
   return expense ? (
-    <div>
-      <h2>
+    <Box  sx={{
+      margin: 3
+    }}>
+      <Typography variant="h3">
         <a href="lines/{dato.id}/">{expense.description}</a>
-      </h2>
-      <p>Límite: {expense.limit}</p>
-      <p>Categoría: {expense.category}</p>
-      <p>Total Gastos: {expense.total}</p>
-      <p>Fecha: {expense.date}</p>
-    </div>
+      </Typography>
+      <Typography>Límite: {expense.limit}</Typography>
+      <Typography>Categoría: {expense.category}</Typography>
+      <Typography>Total Gastos: {expense.total}</Typography>
+      <Typography>Fecha: {expense.date}</Typography>
+    </Box>
   ) : (
     "Loading"
   );
