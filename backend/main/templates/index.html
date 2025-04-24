@@ -1,18 +1,21 @@
-<h1>GASTOS</h1>
-{% if user.is_authenicated%}
-<p>Bienvenido, {{ user.name }}!</p>
-{% endif %}
-{% for expense in expenses %}
-  <div>
-    <h2>{{ expense.description }}</h2>
-    <p>Límite: {{ expense.limit }}</p>
-    <p>Categoría: {{ expense.category }}</p>
-    <p>Fecha: {{ expense.date }}</p>
-    <p>Total Gastos: {{expense.total}}</p>
-  </div>
-{% endfor %}
-{% if expenses %}
-  <h2>Total Gastos: {{ total_expense }}</h2>
-{% else %}
-  <p>No hay gastos registrados.</p>
-{% endif %}
+{% extends 'base.html' %}
+
+{% block title %}
+  <h1>GASTOS</h1>
+{% endblock %}
+{% block content %}
+  {% for expense in expenses %}
+    <div>
+      <h2><a href="gastos/{{ expense.id }}">{{ expense.description }}</a></h2>
+      <p>Límite: {{ expense.limit }}</p>
+      <p>Categoría: {{ expense.category }}</p>
+      <p>Total Gastos: {{ expense.total }}</p>
+      <p>Fecha: {{ expense.date }}</p>
+    </div>
+  {% endfor %}
+  {% if expenses %}
+    <h2>Total Gastos: {{ total_expense }}</h2>
+  {% else %}
+    <p>No hay gastos registrados.</p>
+  {% endif %}
+{% endblock %}

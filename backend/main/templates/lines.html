@@ -1,8 +1,40 @@
-<h1>Lineas</h1>
-{% for line in lines %}
-    <div class="line">
-        <h2>{{line.description}}</h2>
-        <p>Fecha : {{ line.date}}</p>
-        <p>Cantidad : {{line.amount}}</p>
-    </div>
-{% endfor %}
+{% extends 'base.html' %}
+
+    {% block title %}
+        <h1>Lineas</h1>
+    {% endblock %}
+    {% block content %}
+    <form action="" method="POST" class="row">
+        {%csrf_token%}
+        <div class="mb-3 col-4">
+            <label for="" class="form-label">Etiquetas</label>
+            <select
+                multiple
+                class="form-select form-select-lg"
+                name="tags"
+                id="tags"
+            >
+            {% for tg in tags %}
+                {% for tgs in tg %}
+                    <option value="{{tgs.id}}">{{tgs}}</option>
+                {% endfor %}
+            {% endfor %}
+            </select>
+        </div>
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Buscar
+        </button>
+    </form>
+        
+
+        {% for line in lines %}
+            <div class="line">
+                <h2>{{line.description}}</h2>
+                <p>Fecha : {{ line.date}}</p>
+                <p>Cantidad : {{line.amount}}</p>
+            </div>
+        {% endfor %}
+    {% endblock %}

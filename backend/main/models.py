@@ -72,6 +72,7 @@ class ExpenseLin(models.Model):
     
     date = models.DateTimeField(
         verbose_name=_("Date"))
+    
     class Meta:
         verbose_name = _("Expense Line")
         verbose_name_plural = _("Expense Lines")
@@ -80,23 +81,34 @@ class ExpenseLin(models.Model):
         return f"{self.description}"
 
 class Tags(models.Model):
-    expenselin = models.ForeignKey(
+    expenselin = models.ManyToManyField(
         ExpenseLin,
-        on_delete=models.CASCADE,
-        related_name="lines"
+        verbose_name=_('ExpensesLin'),
+        related_name='expenseslin',
     )
 
-    mensual = models.CharField(
-        max_length=1,
+    tag = models.CharField(
+        max_length=3,
         choices=[
             ("Y", _("Yes")),
             ("N", _("No")),
+            ("A",_("Acabado")),
         ],
         verbose_name=_("Tag"),
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="tag_user",
+        verbose_name=_("User"),
     )
 
     class Meta:
         verbose_name=_("Tag")
         verbose_name_plural=_("Tags")
+
     def __str__(self):
-        return f"{self.mensual}"
+        return f"{self.tag}"

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.controllers import get_expenses,get_lines
+from main.controllers import get_expenses,get_lines,get_tags
 from django.db.models import Sum
 
 def index(request):
@@ -13,8 +13,13 @@ def index(request):
 
     return render(request, "index.html", context)
 
-def lines(request, expense_pk_get): 
+def lines(request, expense_pk_get):
+    tags = []
+    user = request.user
     lines = get_lines(expense_pk=expense_pk_get)
-    context = {"lineas":lines}
+    for line in lines:
+        tags.append(get_tags(expenselin_pk=line.id,connectedUser=user))
+        
+    context = {"lines":lines,"tags":tags}
 
     return render(request, "lines.html", context)
