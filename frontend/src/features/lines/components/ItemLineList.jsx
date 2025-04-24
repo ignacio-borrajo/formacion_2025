@@ -1,7 +1,7 @@
 import React from "react";
 import {Box,Typography} from "@mui/material";
 
-const ItemList = ({ dato, search }) => {
+const ItemList = ({ dato }) => {
   const [expense, setExpense] = React.useState();
 
   React.useEffect(() => {
@@ -13,12 +13,17 @@ const ItemList = ({ dato, search }) => {
       margin: 3
     }}>
       <Typography variant="h3">
-        <a href={"lines/?expense="+expense.id+"&tag="}>{expense.description}</a>
+        {expense.description}
       </Typography>
-      <Typography>Límite: {expense.limit}</Typography>
-      <Typography>Categoría: {expense.category}</Typography>
-      <Typography>Total Gastos: {expense.total}</Typography>
+      <Typography>ID: {expense.id}</Typography>
+      <Typography>Cantidad: {expense.amount}</Typography>
       <Typography>Fecha: {expense.date}</Typography>
+      <Typography >Tag:
+      {(
+        expense.tag.map((tag, index) => (
+           <span key={index}>{tag.name}, </span>
+        )))}
+        </Typography>
     </Box>
   ) : (
     "Loading"
