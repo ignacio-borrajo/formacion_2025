@@ -14,6 +14,12 @@ class ExpenseTag(models.Model):
         max_length=255,
         verbose_name=_("Description"),
     )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="expenses_tag",
+        verbose_name=_("Usuario"),
+    )
  
     class Meta:
         verbose_name = _("ExpenseTag")
@@ -96,6 +102,13 @@ class ExpenseLin(models.Model):
     )
     date = models.DateTimeField(
         verbose_name=_("Date"),
+    )
+    tag = models.ManyToManyField(
+        ExpenseTag,
+        blank=True,
+        null=True,
+        related_name="tag",
+        verbose_name=_("Tag"),
     )
 
     class Meta:

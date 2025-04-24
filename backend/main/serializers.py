@@ -11,6 +11,7 @@ class ExpenseTagSerializer(serializers.ModelSerializer):
         )
 
 class ExpenseLinSerializer(serializers.ModelSerializer):
+    tag = ExpenseTagSerializer(many=True, required=False)
     class Meta:
         model = ExpenseLin
         fields = (
@@ -18,6 +19,7 @@ class ExpenseLinSerializer(serializers.ModelSerializer):
             "description",
             "amount",
             "date",
+            "tag",
         )
 
 

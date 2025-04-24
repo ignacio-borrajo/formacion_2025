@@ -28,7 +28,7 @@ const ExpenseList = ({ onSearch = () => {} }) => {
   ) : loading ? (
     <Typography variant="h4">Cargando...</Typography>
   ) : (
-    <Box className="listado-gastos" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <Box className="listado-lineas" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <TextField variant="standard" type="text" placeholder="Buscar" value={inputValue} onChange={handleChange} />
       <Button variant="contained" onClick={handleClick}>Buscar</Button>
       {expenses?.map((dato) => {

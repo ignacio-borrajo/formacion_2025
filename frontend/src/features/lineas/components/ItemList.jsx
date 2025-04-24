@@ -13,12 +13,16 @@ const ItemList = ({ dato, search }) => {
       margin: 2
     }}>
       <Typography variant="h3">
-        <a href={`lineas/${expense.id}/`}>{expense.description}</a>
+        {expense.description}
       </Typography>
-      <Typography>Límite: {expense.limit}</Typography>
-      <Typography>Categoría: {expense.category}</Typography>
-      <Typography>Total Gastos: {expense.total}</Typography>
+      <Typography>Cantidad: {expense.amount}</Typography>
       <Typography>Fecha: {expense.date}</Typography>
+      <Typography>Tag: 
+        {(
+          expense.tag.map((tag, index) => (
+          <span key={index}> {tag.name},</span>
+        )))}
+      </Typography>
     </Box>
   ) : (
     "Loading"

@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from main.views import index, lines
 from users.views import login_view, logout_view
-from main.api import ExpenseViewSet
+from main.api import ExpenseViewSet, ExpenseLineViewSet
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -40,6 +40,11 @@ urlpatterns = [
         ),
         name="gasto_api",
     ),
+    path(
+        "api/lines/",
+        ExpenseLineViewSet.as_view({"get": "list", "post": "create"}),
+        name="lineas_gastos_api",
+    ),   
     path("lines/<int:expense>/", lines, name="lista_lineas_gasto"),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),

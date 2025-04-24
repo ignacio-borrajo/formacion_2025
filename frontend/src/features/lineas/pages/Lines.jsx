@@ -9,7 +9,7 @@ const Expenses = () => {
 
   return (
     <>
-      <Typography variant="h1">GASTOS</Typography>
+      <Typography variant="h1">LÍNEAS</Typography>
       <ExpenseList onSearch={handleSearch} />
     </>
   );
