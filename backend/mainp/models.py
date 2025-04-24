@@ -70,6 +70,7 @@ class ExpenseLin(models.Model):
         related_name="lines",
         verbose_name=_("Expense"),
     )
+
     description = models.CharField(
         max_length=255,
         verbose_name=_("Description"),
@@ -90,4 +91,34 @@ class ExpenseLin(models.Model):
 
     def __str__(self):
         return f"{self.description}"
-    
+
+
+class ExpenseTags(models.Model):
+    """
+    Model representing an expense tag.
+    """
+    expense_lines = models.ManyToManyField(
+    ExpenseLin,
+    related_name="tags",
+    verbose_name=_("Expense Line"),
+    )
+
+    description = models.CharField(
+        max_length=255,
+        verbose_name=_("Description"),
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="expense_tags",
+        verbose_name=_("User"),
+    )
+
+    class Meta:
+        verbose_name = _("Expense Tag")
+        verbose_name_plural = _("Expense Tags")
+        ordering = ["description"]
+
+    def __str__(self):
+        return f"{self.description}"
