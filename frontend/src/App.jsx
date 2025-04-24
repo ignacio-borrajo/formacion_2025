@@ -4,6 +4,7 @@ import Expenses from "./features/listados/pages/Expenses";
 import Login from "./features/users/pages/Login";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Layout from "./common/components/Layout";
+import ExpenseLines from "./features/listados/pages/ExpenseLines";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" exact element={<Expenses />} />
           <Route path="/login" element={<Login />} />
           <Route path="/gastos" element={<Expenses />} />
+          <Route path="/gastos/:id" element={<ExpenseLines />} />
         </Route>
       </Routes>
     </Router>
