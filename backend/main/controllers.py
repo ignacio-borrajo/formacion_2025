@@ -17,6 +17,13 @@ def get_expenses(connected_user):
 def get_lines(request,expense_pk):
 
     tag_param = request.GET.get("tag")
-
+    
     lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0, tag__name__icontains=tag_param).all
+    return lines
+
+
+def get_linesApi(request):
+    expense_pk = request.GET.get("expense")
+    tag_param = request.GET.get("tag")
+    lines = ExpenseLin.objects.filter(expense=expense_pk,tag__name__icontains=tag_param)
     return lines
