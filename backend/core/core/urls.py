@@ -14,35 +14,42 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-#Por defecto en django viene así
+
+# Por defecto en django viene así
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 
 
-#Para savar la pagina del cohete
+# Para savar la pagina del cohete
 from django.views import debug
 
-#importo mis views personalizada
+# importo mis views personalizada
 from main.views import index
 from main.views import lines
 
 from users.views import login_view, logout_view
 
-#importo api
+# importo api
 from main.api import ExpenseViewSet
+
+# Importo para ofrecer tokens
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 
 urlpatterns = [
-    #Enruto por defecto la pagina de django
-    path('', debug.default_urlconf),
-    #Viene por defecto, para las gestiones como admin
-    path('admin/', admin.site.urls),
-    #Enruto mi vista a la que llamo index para revisar los gastos
-    path('gastos/',index,name="index"),
-    #Enruto mi vista a la que llamo
+    # Enruto por defecto la pagina de django
+    path("", debug.default_urlconf),
+    # Viene por defecto, para las gestiones como admin
+    path("admin/", admin.site.urls),
+    # Enruto mi vista a la que llamo index para revisar los gastos
+    path("gastos/", index, name="index"),
+    # Enruto mi vista a la que llamo
     path("lines/<int:expense>/", lines, name="lista_lineas_gasto"),
-    
-    #Rutas api
+    # Rutas api
     path(
         "api/gastos/",
         ExpenseViewSet.as_view({"get": "list", "post": "create"}),
@@ -55,11 +62,15 @@ urlpatterns = [
         ),
         name="gasto_api",
     ),
-
-    #Rutas que redirigen hacia las vistas para el login y el logout
+    # Rutas que redirigen hacia las vistas para el login y el logout
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
-
-
-    #Nota, los names es como referencio a las url desde las templates
+    # Rutas para obtener tokens de login y usar la api sin session
+    path(
+        "api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"
+    ),
+    path(
+        "api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"
+    ),
+    # Nota, los names es como referencio a las url desde las templates
 ]
