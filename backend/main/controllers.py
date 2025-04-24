@@ -16,3 +16,7 @@ def get_lines(expense_pk):
 def get_tags(expenselin_pk,connectedUser):
     tags = Tags.objects.filter(expenselin=expenselin_pk,user=connectedUser)
     return tags
+
+def post_tags(expenselin_pk,connectedUser):
+    tags = Tags.objects.filter(expenselin=expenselin_pk,user=connectedUser)
+    return tags
