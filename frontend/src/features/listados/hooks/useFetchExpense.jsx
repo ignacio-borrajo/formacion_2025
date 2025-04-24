@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import api from "../../../api/api";
 
 function useFetchExpense(){
     const [response, setResponse] = React.useState([]);
@@ -6,20 +7,21 @@ function useFetchExpense(){
     const [loading, setLoading] = React.useState(true);
   
     const fetchData = React.useCallback(() => {
-      setLoading(true);
-      setError(null);
-  
-      fetch("http://localhost:8000/api/gastos/")
-        .then((response) => response.json())
-        .then((data) => {
-          setResponse(data);
+      setLoading(true);//Comenzamos cargando
+      setError(null);//Y con el error a nulo
+      
+      //Uso la api con axio o si usas fetch acuerdate de mandar los tokens
+      api
+        .get("gastos/")
+        .then((response) => {
+          setResponse(response.data);//Cuando se ejecute seteo la response
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
           setError(error);
         })
         .finally(() => {
-          setLoading(false);
+          setLoading(false);//Cuando se acabe de ejecutar que deje de cargar
         });
     }, []);
   

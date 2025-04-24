@@ -19,7 +19,7 @@ api.interceptors.request.use(
 
     //Si existe
     if (accessToken) {
-        //Lo añado a los heades para que se conecte estando identoificado
+        //Lo añado a los heades para que se conecte estando identificado 
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
 
