@@ -1,6 +1,7 @@
 import React from "react";
 import api from "../../../api/api";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const LoginForm = () => {
           setPassword(e.target.value);
         }}
       />
-      <button onClick={handleClick}>Login</button>
+      <Button variant="contained" onClick={handleClick}>Login</Button>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </>
   );

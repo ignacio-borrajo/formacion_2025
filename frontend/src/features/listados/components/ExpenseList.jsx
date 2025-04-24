@@ -2,7 +2,7 @@ import React from "react";
 import ItemList from "./ItemList";
 import useFetchExpenses from "../hooks/useFetchExpense";
 
-const ExpenseList = ({ onSearch = () => {} }) => {
+const ExpenseList = ({ onSearch = () => { } }) => {
   const [expenses, setExpenses] = React.useState([]);
   const [inputValue, setInputValue] = React.useState("");
 
