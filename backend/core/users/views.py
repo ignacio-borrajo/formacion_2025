@@ -16,7 +16,10 @@ def login_view(request):
             password=request.POST["password"],
         )
 
+       
+
         if user is not None:#Si el user se autentica bien  
+            print(request.POST["username"],request.POST["password"])
             login(request, user)# hago login usa la funcion de Django
             return redirect("/")# Y me envía al home
         else:#sino da error
