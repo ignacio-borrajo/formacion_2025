@@ -22,7 +22,8 @@ def index(request):
 
 
 def lines(request, expense):
-    lines = get_lines(expense_pk=expense)
+    tag_codes = request.GET.getlist('tags')  # Get tag codes from query parameters
+    lines = get_lines(expense_pk=expense, tag_codes=tag_codes)
     context = {"lines": lines}
 
     return render(request, "lines.html", context)

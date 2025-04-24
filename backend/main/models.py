@@ -26,17 +26,7 @@ class Expense(models.Model):
         auto_now_add=True,
         verbose_name=_("Date"),
     )
-    category = models.CharField(
-        max_length=100,
-        choices=[
-            ("FOOD", _("Food")),
-            ("TRAN", _("Transport")),
-            ("ENTR", _("Entertainment")),
-            ("UTIL", _("Utilities")),
-            ("OTHR", _("Other")),
-        ],
-        verbose_name=_("Category"),
-    )
+    
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
@@ -58,6 +48,37 @@ class Expense(models.Model):
         return f"{self.description}"
 
 
+class Tag(models.Model):
+    """
+    Model representing a tag.
+    """
+    code = models.CharField(
+        max_length=10,
+        unique=True,
+        verbose_name=_("Code"),
+    )
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("Name"),
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="tags",
+        verbose_name=_("Usuario"),
+    )
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class ExpenseLin(models.Model):
     """
     Model representing an expense line.
@@ -69,6 +90,14 @@ class ExpenseLin(models.Model):
         related_name="lines",
         verbose_name=_("Expense"),
     )
+
+    tag = models.ManyToManyField( 
+        Tag,
+        blank=True,
+        related_name="lines",
+        verbose_name=_("Tag"),
+    )
+
     description = models.CharField(
         max_length=255,
         verbose_name=_("Description"),
