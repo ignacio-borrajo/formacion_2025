@@ -1,15 +1,16 @@
 
 from main.models import Expense, ExpenseLin
-from django.db.models import Sum, Subquery, Q
+from django.db.models import Q
 
 
 def get_expenses(connected_user):
 
     if connected_user.is_authenticated:
-        expenses = Expense.objects.filter(
-            Q(user__isnull=True) | Q(user=connected_user))
+        expenses = Expense.with_totals.filter(
+            Q(Q(user__isnull=True) | Q(user=connected_user))
+        )
     else:
-        expenses = Expense.objects.filter(user__isnull=True)
+        expenses = Expense.with_totals.filter(user__isnull=True)
     
     return expenses
 

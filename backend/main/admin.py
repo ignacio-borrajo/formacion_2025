@@ -4,12 +4,8 @@ from main.models import Expense, ExpenseLin
 
 
 class ExpenseAdmin(admin.ModelAdmin):
-    fields = (
-        "description",
-        "category",
-        "limit",
-        "user",
-    )
+
+    fields = ("description", "category", "limit", "user")
     list_display = (
         "description",
         "user",

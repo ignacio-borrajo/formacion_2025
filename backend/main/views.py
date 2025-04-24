@@ -9,6 +9,9 @@ def index(request):
     """
     user = request.user
 
+
+    user = request.user
+
     expenses = get_expenses(user)
 
     total_expense = expenses.aggregate(total_expense=Sum("total"))[

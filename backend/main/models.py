@@ -37,6 +37,17 @@ class Expense(models.Model):
         ],
         verbose_name=_("Category"),
     )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="expenses",
+        verbose_name=_("Usuario"),
+    )
+
+    objects = models.Manager()
+    with_totals = ExpenseManager()
 
     user = models.ForeignKey(
         UserModel,
