@@ -9,8 +9,10 @@ def index(request):
     """
     View function for the index page.
     """
+    
+    user = request.user
     #Obtengo el listado de expenses de mi controlador (junto con sus totales)
-    expenses=get_expenses()
+    expenses = get_expenses(user)
 
     # y suma de los importes de todos los pedidos ¿Es dinámico?
     total_pedidos=get_expenses_total()

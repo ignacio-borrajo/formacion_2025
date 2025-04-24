@@ -5,11 +5,11 @@ from rest_framework import permissions
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-
-
-    
-
-    #Saco los datos del controlador
-    queryset = get_expenses()
     #Los serialio para convertir a json o xml con los serializers
     serializer_class = ExpenseSerializer
+
+    def get_queryset(self):
+        queryset = get_expenses(self.request.user)
+        return queryset
+
+    

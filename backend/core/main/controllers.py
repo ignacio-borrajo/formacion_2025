@@ -4,14 +4,22 @@ from django.db.models import Sum
 from django.db.models import Q
 
 #Utility para obtener un array con todas las expenses y total de la suma de sus amount de linea
-def get_expenses():
+def get_expenses(connected_user):
 
 
-    
+    if connected_user.is_authenticated:
+        #Cojo las expenses del manager con los totales de expense line calculados
+        expenses = Expense.with_totals.filter(
+            Q(Q(user__isnull=True) | Q(user=connected_user))
+        )
+    else:
+        expenses = Expense.with_totals.filter(user__isnull=True)
+
+    return expenses
 
    
-    #Cojo las expenses del manager con los totales de expense line calculados
-    expenses=Expense.with_totals.all()
+    
+   
 
     # los devuelvo
     return expenses
