@@ -1,14 +1,25 @@
-import React from 'react';
+import React from "react";
 
-const ItemList = ({ dato }) => {
+const ItemList = ({ dato, search }) => {
+  const [expense, setExpense] = React.useState();
 
-    return  <div key={dato.id}>
-    <h2>{dato.description}</h2>
-    <p>Categoria: {dato.category}</p>
-    <p>Total: {dato.total}</p>
-    <p>Fecha: {dato.date}</p>
-  </div>
+  React.useEffect(() => {
+    setExpense(dato);
+  }, [dato]);
 
+  return expense ? (
+    <div>
+      <h2>
+        <a href="lines/{dato.id}/">{expense.description}</a>
+      </h2>
+      <p>Límite: {expense.limit}</p>
+      <p>Categoría: {expense.category}</p>
+      <p>Total Gastos: {expense.total}</p>
+      <p>Fecha: {expense.date}</p>
+    </div>
+  ) : (
+    "Loading"
+  );
 };
 
 export default ItemList;

@@ -1,56 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import ItemList from './features/listados/components/ItemList'
+import { useState } from "react";
+import "./App.css";
+import Expenses from "./features/listados/pages/Expenses";
+import Login from "./features/users/pages/Login";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
-  const datos =[
-    {
-      "id": 1,
-      "description":"Gasto 1",
-      "category":"FOOD",
-      "total":45.3,
-      "date":"2025-04-22T12:02:00Z",
-    },
-    {
-      "id": 2,
-      "description":"Gasto 2",
-      "category":"OTHR",
-      "total":4.3,
-      "date":"2025-04-22T12:02:00Z",
-    },
-    {
-      "id": 3,
-      "description":"Gasto 3",
-      "category":"FOOD",
-      "total":5.3,
-      "date":"2025-04-22T12:02:00Z",
-    },
-    {
-      "id": 4,
-      "description":"Gasto 4",
-      "category":"FOOD",
-      "total":45.3,
-      "date":"2025-04-22T12:02:00Z",
-    }
-
-  ]
   return (
-    <>
-      <h1>GASTOS</h1> 
-
-     
-
-      {datos.map((dato) =>  {
-        return (
-          <ItemList key={dato.id} dato={dato} />
-        )
-      })}
-     
-    </>
-  )
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/gastos">Gastos</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" exact element={<Expenses />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/gastos" element={<Expenses />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
