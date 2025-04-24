@@ -1,8 +1,13 @@
 from main.models import Expense,ExpenseLin
 from django.db.models import Sum
+#Importo para usar or
+from django.db.models import Q
 
 #Utility para obtener un array con todas las expenses y total de la suma de sus amount de linea
 def get_expenses():
+
+
+    
 
    
     #Cojo las expenses del manager con los totales de expense line calculados

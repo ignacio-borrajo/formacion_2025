@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from main.managers import ExpenseManager
+#Para asignar propietario a las expenses
+from django.contrib.auth import get_user_model
+
+
+UserModel = get_user_model()
 
 #Modelizacion de los datos con ayuda del orm de django
 
@@ -12,6 +17,7 @@ class Category(models.Model):
     name=models.CharField(max_length=40,unique=True,)
     description=models.CharField(max_length=255, verbose_name=("Description"))
 
+    #Para pedir luego una categoria por defecto en el campo obligatorio de expense
     @classmethod
     def get_default_pk(cls):
         category,create = cls.objects.get_or_create(
@@ -40,6 +46,17 @@ class Expense(models.Model):
   
 
     category=models.ForeignKey(Category,on_delete=models.CASCADE,default=Category.get_default_pk)
+
+    #Campo de usuario/creador/propietario
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="expenses",
+        verbose_name=_("Usuario"),
+    )
+
 
     #Managers personalizados, importante redefinir el original
     objects=models.Manager()
