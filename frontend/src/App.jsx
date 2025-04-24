@@ -7,6 +7,8 @@ import Login from './features/users/components/login'
 
 import { BrowserRouter, Route,  Routes } from 'react-router-dom'
 
+import Layout from './common/components/layout'
+
 
 function App() {
   
@@ -17,9 +19,12 @@ function App() {
     <BrowserRouter>
     
       <Routes>
-        <Route path='#' element={<Expenses/>}/>
-        <Route path='/' element={<Expenses/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/' element={<Layout/>}>
+          <Route path='#' element={<Expenses/>}/>
+         <Route path='/' element={<Expenses/>}/>
+          <Route path='/login' element={<Login/>}/>
+        </Route>
+        
         
 
 
