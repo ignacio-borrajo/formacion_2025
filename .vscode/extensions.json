@@ -1,0 +1,25 @@
+{
+    "recommendations": [
+      "steoates.autoimport",
+      "ms-python.black-formatter",
+      "dsznajder.es7-react-js-snippets",
+      "dbaeumer.vscode-eslint",
+      "ms-python.flake8",
+      "mhutchie.git-graph",
+      "wix.vscode-import-cost",
+      "ecmel.vscode-html-css",
+      "ms-python.isort",
+      "ms-toolsai.jupyter",
+      "ms-toolsai.vscode-jupyter-cell-tags",
+      "yzhang.markdown-all-in-one",
+      "yzane.markdown-pdf",
+      "bierner.markdown-mermaid",
+      "esbenp.prettier-vscode",
+      "ms-python.vscode-pylance",
+      "ms-python.python",
+      "wayou.vscode-todo-highlight",
+      "mikestead.dotenv",
+      "oracle.mysql-shell-for-vs-code"
+    ]
+  }
+  
