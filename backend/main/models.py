@@ -82,6 +82,8 @@ class ExpenseLin(models.Model):
         verbose_name=_("Date"),
     )
 
+   
+
     class Meta:
         verbose_name = _("Expense Line")
         verbose_name_plural = _("Expense Lines")
@@ -89,3 +91,45 @@ class ExpenseLin(models.Model):
 
     def __str__(self):
         return f"{self.description}"
+    def get_tags(self):
+        """
+        Returns a unique list of tags associated with this expense line.
+        """
+        return ", ".join(set(tag.name for tag in self.tags.all()))
+    get_tags.short_description = "Tags"
+ 
+    
+
+
+class Tag(models.Model):
+    """
+    Model representing a tag for an expense.
+    """
+
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("Tag Name"),
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="tags",
+        verbose_name=_("User"),
+    )
+
+    lines = models.ManyToManyField(
+        "ExpenseLin",
+        related_name="tags",
+        verbose_name=_("Expense Lines"),
+    )
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+        ordering = ["name"]
+        unique_together = ("name", "user") 
+
+
+    def __str__(self):
+        return f"{self.name}"

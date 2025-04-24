@@ -10,6 +10,7 @@ class ExpenseLinSerializer(serializers.ModelSerializer):
             "description",
             "amount",
             "date",
+          
         )
 
 

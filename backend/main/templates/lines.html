@@ -1,10 +1,28 @@
 <h1>Líneas</h1>
 
+<form method="get">
+  <label for="tags">Filtrar por etiquetas:</label>
+  <select name="tags" id="tags" multiple>
+    <option value="" {% if not request.GET.tags %}selected{% endif %}>Todas</option>
+    {% for tag in available_tags %}
+      <option value="{{ tag.id }}" {% if tag.id|stringformat:"s" in request.GET.tags %}selected{% endif %}>
+        {{ tag.name }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit">Buscar</button>
+</form>
+
 {% for line in lines %}
   <div class="line">
     <h2>{{ line.description }}</h2>
     <p>Cantidad: {{ line.amount }}</p>
     <p>Fecha: {{ line.date }}</p>
+    <p> Tags:  
+        {% for tag in line.tags.all %}
+        {{ tag.name }}
+        {% endfor %}
+    </p>
   </div>
   <hr />
 {% endfor %}
