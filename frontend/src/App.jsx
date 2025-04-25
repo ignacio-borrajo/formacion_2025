@@ -5,6 +5,10 @@ import Login from "./features/users/pages/Login";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Layout from "./common/components/Layout";
 import Lines from "./features/lines/pages/Lines";
+import AddExpenses from "./features/addExpenses/pages/AddExpenses";
+import EditExpense from "./features/editExpenses/pages/EditExpense";
+import AddLine from "./features/addLine/pages/AddLine";
+import EditLine from "./features/editLine/pages/EditLine";
 
 function App() {
   return (
@@ -15,6 +19,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/gastos" element={<Expenses />} />
           <Route path="/lines" element={<Lines />} />
+          <Route path="/addExpense" element={<AddExpenses />} />
+          <Route path="/editExpense/:id" element={<EditExpense />} />
+          <Route path="/addLine" element={<AddLine />} />
+          <Route path="/editLine/:id" element={<EditLine />} />
         </Route>
       </Routes>
     </Router>

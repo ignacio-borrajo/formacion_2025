@@ -76,6 +76,9 @@ const Header = (props) => {
             <Button component={Link} to="/gastos" sx={{ color: "#fff" }}>
               Gastos
             </Button>
+            <Button component={Link} to="/addexpense" sx={{ color: "#fff" }}>
+              Añadir
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>

@@ -24,5 +24,10 @@ def get_lines(request, expense_pk):
 
 def get_all_lines(request):
         expense_param = request.GET.get("expense")
-        lines = ExpenseLin.objects.filter(expense=expense_param, amount__gt=0)
+
+        if expense_param is None:
+            lines = ExpenseLin.objects
+        else:
+            lines = ExpenseLin.objects.filter(expense=expense_param, amount__gt=0)
+        
         return lines

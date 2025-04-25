@@ -15,6 +15,7 @@ class ExpenseLinSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpenseLin
         fields = (
+            "expense",
             "id",
             "description",
             "amount",
