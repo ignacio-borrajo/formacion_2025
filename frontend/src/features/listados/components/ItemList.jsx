@@ -1,24 +1,40 @@
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom"; // Importa Link para la navegación
 
 const ItemList = ({ dato, search }) => {
-  const [expense, setExpense] = React.useState();
+  const [expense, setExpense] = React.useState(null); // Inicializa como null
 
   React.useEffect(() => {
     setExpense(dato);
   }, [dato]);
 
   return expense ? (
-    <div>
-      <h2>
-        <a href="lines/{dato.id}/">{expense.description}</a>
-      </h2>
-      <p>Límite: {expense.limit}</p>
-      <p>Categoría: {expense.category}</p>
-      <p>Total Gastos: {expense.total}</p>
-      <p>Fecha: {expense.date}</p>
-    </div>
+    <Grid item xs={12} sm={6} md={4} lg={3}> {/* Usa Grid para la disposición */}
+      <Card>
+        <CardContent>
+          <Typography variant="h6" component="h2" gutterBottom>
+            <Link to={`/expenses/${expense.id}/lines`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {expense.description}
+            </Link>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Límite: {expense.limit !== null ? `$${expense.limit}` : 'Sin límite'}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Categoría: {expense.category}
+          </Typography>
+          <Typography variant="subtitle1">
+            Total Gastos: ${expense.total}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            Fecha: {new Date(expense.date).toLocaleDateString()}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
   ) : (
-    "Loading"
+    <Typography>Cargando gasto...</Typography>
   );
 };
 
