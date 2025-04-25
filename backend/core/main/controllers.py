@@ -1,14 +1,15 @@
-from main.models import Expense,ExpenseLin
+from main.models import Expense, ExpenseLin
 from django.db.models import Sum
-#Importo para usar or
+
+# Importo para usar or
 from django.db.models import Q
 
-#Utility para obtener un array con todas las expenses y total de la suma de sus amount de linea
+
+# Utility para obtener un array con todas las expenses y total de la suma de sus amount de linea
 def get_expenses(connected_user):
 
-
     if connected_user.is_authenticated:
-        #Cojo las expenses del manager con los totales de expense line calculados
+        # Cojo las expenses del manager con los totales de expense line calculados
         expenses = Expense.with_totals.filter(
             Q(Q(user__isnull=True) | Q(user=connected_user))
         )
@@ -17,27 +18,25 @@ def get_expenses(connected_user):
 
     return expenses
 
-   
-    
-   
-
     # los devuelvo
     return expenses
 
-#Alternativa en funcion
+
+# Alternativa en funcion
 def get_expenses_total():
 
-   #Para hacer el sumatorio total de tdos loa amount de las expenses. Va con ternaria para evitar none types
-   total=sum( (i.total if i.total is not None else 0) for i in Expense.objects.all().annotate(total=Sum("lines__amount")))
-    #Podría hacerse con el custom manager withtotals
-   return total
+    # Para hacer el sumatorio total de tdos loa amount de las expenses. Va con ternaria para evitar none types
+    total = sum(
+        (i.total if i.total is not None else 0)
+        for i in Expense.objects.all().annotate(total=Sum("lines__amount"))
+    )
+    # Podría hacerse con el custom manager withtotals
+    return total
 
-#Cojo las lineas de la expense proporcionada
-def get_lines(expense_pk):
-    #Filtro por las lineas de la expense deseada con amount>0
-    lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0) 
+
+# Modifica get_lines, debe recibir la pk de la expense y el usuario para filtrar las tags
+# Cojo las lineas de la expense proporcionada
+def get_lines(expense_pk, user):
+    # Filtro por las lineas de la expense deseada con amount>0 y tags del user
+    lines = ExpenseLin.with_tags.filter(expense=expense_pk, amount__gt=0)
     return lines
-
-
-
-   

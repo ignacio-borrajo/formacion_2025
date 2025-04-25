@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from main.models import Expense, ExpenseLin
+from main.models import Expense, ExpenseLin, Tag
 
 """
 Serializers in Django REST Framework (DRF) are components that allow complex data such as querysets 
@@ -9,15 +9,20 @@ complex types after validating the incoming data.
 """
 
 
+class TagsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = ("name", "description", "user")
+
+
 class ExpenseLinSerializer(serializers.ModelSerializer):
+
+    tags = TagsSerializer(many=True, required=False)
+
     class Meta:
         model = ExpenseLin
-        fields = (
-            "id",
-            "description",
-            "amount",
-            "date",
-        )
+        fields = ("id", "description", "amount", "tags")
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
@@ -25,7 +30,9 @@ class ExpenseSerializer(serializers.ModelSerializer):
     Serializer for the Expense model.
     """
 
-    lines = ExpenseLinSerializer(many=True, required=False)
+    lines = ExpenseLinSerializer(
+        many=True, required=False
+    )  # Campo para alvergar sus lineas a partir del serializer
     total = serializers.DecimalField(
         max_digits=10, decimal_places=2, read_only=True
     )

@@ -30,7 +30,7 @@ from main.views import lines
 from users.views import login_view, logout_view
 
 # importo api
-from main.api import ExpenseViewSet
+from main.api import ExpenseViewSet, ExpenseLinViewSet
 
 # Importo para ofrecer tokens
 
@@ -58,10 +58,8 @@ urlpatterns = [
         name="lista_gastos_api",
     ),
     path(
-        "api/gastos/<int:pk>/",
-        ExpenseViewSet.as_view(
-            {"get": "retrieve", "put": "update", "delete": "destroy"}
-        ),
+        "api/gastos/<int:expense>/",
+        ExpenseLinViewSet.as_view({"get": "list", "post": "create"}),
         name="gasto_api",
     ),
     # Rutas que redirigen hacia las vistas para el login y el logout

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from main.controllers import get_expenses
-from main.serializers import ExpenseSerializer
+from main.controllers import get_expenses, get_lines
+from main.serializers import ExpenseSerializer, ExpenseLinSerializer
 from rest_framework import permissions
 from rest_framework.response import Response
 
@@ -19,3 +19,23 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     # Existe por defecto y es así. Si hiciera falta podría sobreescribirlo
     def list(self, request):
         return Response(self.get_queryset())
+
+
+class ExpenseLinViewSet(viewsets.ModelViewSet):
+
+    serializer_class = ExpenseLinSerializer
+
+    # Utilizo la propiedad self para acceder a los datos de la request
+    def get_queryset(self):
+        expense = self.kwargs.get("expense")
+
+        print("intento la expenselin get")
+
+        print(
+            "La expense es:" + (str(expense) if expense is not None else "0")
+        )
+        # De ahi se que tengo el user porque rest_framework de django al autenticarme me lo mete aquí
+        queryset = get_lines(expense_pk=expense, user=self.request.user)
+        print("hago el queryset bien")
+        print(queryset)
+        return queryset

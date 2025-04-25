@@ -3,8 +3,9 @@
 {% for line in lines %}
   <div class="line">
     <h2>{{ line.description }}</h2>
-    <p>Cantidad: {{ line.amount }}</p>
+
     <p>Fecha: {{ line.date }}</p>
+    <p>{{line.tags_names}}</p>
   </div>
   <hr />
 {% endfor %}

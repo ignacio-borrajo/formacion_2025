@@ -43,20 +43,10 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 
-class ExpenseLinAdmin(admin.ModelAdmin):
-    list_display = (
-        "description",
-        "expense",
-        "amount",
-        "date",
-    )
-    list_filter = ("expense",)
-    search_fields = ("description",)
-    list_editable = ("amount",)
-
-
-# Registro el modelo con su admin correspondiente
-admin.site.register(ExpenseLin, ExpenseLinAdmin)
+# Admin para desplegar las tags que voy a crear para las expense lin dentro de las expenselin
+class TagInline(admin.TabularInline):
+    model = ExpenseLin.tags.through
+    extra = 1
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -69,3 +59,15 @@ class TagAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Tag, TagAdmin)
+
+
+class ExpenseLinAdmin(admin.ModelAdmin):
+    list_display = ("description", "expense", "amount", "date")
+    list_filter = ("expense",)
+    search_fields = ("description",)
+    list_editable = ("amount",)
+    inlines = [TagInline]
+
+
+# Registro el modelo con su admin correspondiente
+admin.site.register(ExpenseLin, ExpenseLinAdmin)

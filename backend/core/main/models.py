@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from main.managers import ExpenseManager
+from main.managers import ExpenseLinManager
 
 # Para asignar propietario a las expenses
 from django.contrib.auth import get_user_model
@@ -80,6 +81,7 @@ class Expense(models.Model):
 
 
 class Tag(models.Model):
+
     name = models.CharField(
         max_length=40,
         unique=True,
@@ -92,11 +94,15 @@ class Tag(models.Model):
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
         related_name="tags",  # Como referirse a tags desde users, para la relacion inversa
         verbose_name=_("Usuario"),
     )
+
+    # Defino un str para que en admin se muestre al referenciarlo como fk
+    def __str__(self) -> str:
+        return self.name
 
 
 class ExpenseLin(models.Model):
@@ -124,6 +130,10 @@ class ExpenseLin(models.Model):
     date = models.DateTimeField(
         verbose_name=_("Date"),
     )
+    tags = models.ManyToManyField(Tag, related_name="tags")
+
+    objects = models.Manager()
+    with_tags = ExpenseLinManager()
 
     class Meta:
         verbose_name = _("Expense Line")
