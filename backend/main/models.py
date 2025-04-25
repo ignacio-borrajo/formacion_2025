@@ -89,3 +89,25 @@ class ExpenseLin(models.Model):
 
     def __str__(self):
         return f"{self.description}"
+
+class ExpenseTag(models.Model):
+    """
+    Model representing a tag for expenses, specific to each user.
+    """
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("Name")
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        verbose_name=_("User")
+    )
+
+    class Meta:
+        verbose_name = _("Expense Tag")
+        verbose_name_plural = _("Expense Tags")
+        unique_together = ('user', 'name')  # Ensure each user has unique tag names
+
+    def __str__(self):
+        return self.name
