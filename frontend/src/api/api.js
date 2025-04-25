@@ -17,6 +17,8 @@ api.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
 
+    console.log("Solicitud Axios:", config.baseURL + config.url, "Parámetros:", config.params);
+
     return config;
   },
   function (error) {

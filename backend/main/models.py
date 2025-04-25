@@ -70,6 +70,35 @@ class Expense(models.Model):
         return f"{self.description}"
 
 
+class Label(models.Model):
+    """
+    Model representing a tag for expenses.
+    """
+
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("Name"),
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="etiquetas",
+        verbose_name=_("User"),
+    )
+    date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("Date"),
+    )
+
+    class Meta:
+        verbose_name = _("Label")
+        verbose_name_plural = _("Labels")
+        unique_together = ("name", "user")  # Cada usuario tiene etiquetas únicas
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.name}"
+
 class ExpenseLin(models.Model):
     """
     Model representing an expense line.
@@ -92,6 +121,12 @@ class ExpenseLin(models.Model):
     )
     date = models.DateTimeField(
         verbose_name=_("Date"),
+    )
+    labels = models.ManyToManyField(
+        Label,
+        related_name="lineas_gasto",
+        verbose_name=_("Labels"),
+        blank=True,
     )
 
     class Meta:

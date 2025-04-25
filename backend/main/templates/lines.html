@@ -1,10 +1,31 @@
 <h1>Líneas</h1>
 
+<form method="get">
+  <label for="labels">Filtrar por etiquetas:</label>
+  <select name="labels" id="labels" multiple>
+    {% for label in all_labels %}
+      <option value="{{ label.id }}" {% if label.id|stringformat:"s" in selected_labels %}selected{% endif %}>
+        {{ label.name }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filtrar</button>
+  <a href="?">Mostrar todas</a>
+</form>
+
+<hr />
+
 {% for line in lines %}
   <div class="line">
     <h2>{{ line.description }}</h2>
     <p>Cantidad: {{ line.amount }}</p>
     <p>Fecha: {{ line.date }}</p>
+    <p>Etiquetas:</p>
+    <ul>
+      {% for label in line.labels.all %}
+        <li>{{ label.name }}</li>
+      {% endfor %}
+    </ul>
   </div>
   <hr />
 {% endfor %}
