@@ -17,5 +17,5 @@ class ExpenseLineViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseLinSerializer
 
     def get_queryset(self):
-        queryset = get_all_lines()
+        queryset = get_all_lines(self.request)
         return queryset

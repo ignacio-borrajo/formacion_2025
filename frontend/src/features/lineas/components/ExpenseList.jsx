@@ -21,7 +21,13 @@ const ExpenseList = ({ onSearch = () => {} }) => {
 
   const handleClick = () => {
     onSearch(inputValue);
-  };
+    const filteredLines = response.filter((expense) =>
+      expense.tag?.some((tag) =>
+        tag.name.toLowerCase().includes(inputValue.toLowerCase())
+      )
+    );
+    setExpenses(filteredLines);
+  };  
 
   return error ? (
     <Typography variant="h4">Se ha producido un error</Typography>

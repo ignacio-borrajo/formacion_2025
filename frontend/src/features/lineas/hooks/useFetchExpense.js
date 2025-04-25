@@ -1,17 +1,20 @@
 import React from "react";
 import api from "../../../api/api";
+import { useSearchParams } from "react-router-dom";
 
 const useFetchExpenses = () => {
   const [response, setResponse] = React.useState([]);
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+  const [searchParams] = useSearchParams();
 
   const fetchData = React.useCallback(() => {
     setLoading(true);
     setError(null);
+    console.log("searchParams", searchParams.get("expense"));
 
     api
-      .get("lines/")
+      .get("lines/?expense=" + searchParams.get("expense"))
       .then((response) => {
         setResponse(response.data);
       })

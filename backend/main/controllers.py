@@ -22,6 +22,7 @@ def get_lines(request, expense_pk):
     return lines
 
 
-def get_all_lines():
-        lines = ExpenseLin.objects
+def get_all_lines(request):
+        expense_param = request.GET.get("expense")
+        lines = ExpenseLin.objects.filter(expense=expense_param, amount__gt=0)
         return lines

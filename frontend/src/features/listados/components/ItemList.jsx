@@ -13,7 +13,7 @@ const ItemList = ({ dato, search }) => {
       margin: 2
     }}>
       <Typography variant="h3">
-        <a href={`lineas/${expense.id}/`}>{expense.description}</a>
+        <a href={`lines/?expense=${expense.id}`}>{expense.description}</a>
       </Typography>
       <Typography>Límite: {expense.limit}</Typography>
       <Typography>Categoría: {expense.category}</Typography>
