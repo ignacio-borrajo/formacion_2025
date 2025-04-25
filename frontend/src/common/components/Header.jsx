@@ -22,6 +22,7 @@ const navItems = ["Home", "About", "Contact"];
 const Header = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [login, setLogin] = React.useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -49,6 +50,11 @@ const Header = (props) => {
             <ListItemText primary="Gastos" />
           </ListItemButton>
         </ListItem>
+        <ListItem key={1} disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }} component={Link} to="/add">
+            <ListItemText primary="Añadir" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -71,10 +77,13 @@ const Header = (props) => {
               Inicio
             </Button>
             <Button component={Link} to="/login" sx={{ color: "#fff" }}>
-              Login
+              {sessionStorage.getItem("user")==null? "Login": sessionStorage.getItem("user")}
             </Button>
             <Button component={Link} to="/gastos" sx={{ color: "#fff" }}>
               Gastos
+            </Button>
+            <Button component={Link} to="/add" sx={{ color: "#fff" }}>
+              Añadir
             </Button>
           </Box>
         </Toolbar>

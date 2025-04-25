@@ -23,6 +23,7 @@ const LoginForm = () => {
       .then((response) => {
         sessionStorage.setItem("access", response.data.access);
         sessionStorage.setItem("refresh", response.data.refresh);
+        sessionStorage.setItem("user", username);
         navigate("/");
       })
       .catch((error) => {

@@ -3,6 +3,8 @@ import "./App.css";
 import Expenses from "./features/listados/pages/Expenses";
 import Login from "./features/users/pages/Login";
 import Lines from "./features/lines/pages/Lines";
+import AddExpense from "./features/addExpense/pages/AddExpense"
+import EditExpense from "./features/editExpense/pages/EditExpense"
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Layout from "./common/components/Layout";
 
@@ -15,6 +17,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/gastos" element={<Expenses />} />
           <Route path="/lines" element={<Lines />} />
+          <Route path="/add" element={<AddExpense />} />
+          <Route path="/edit/:id" element={<EditExpense />} />
         </Route>
       </Routes>
     </Router>
