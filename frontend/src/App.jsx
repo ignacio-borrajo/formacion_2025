@@ -4,7 +4,7 @@ import Expenses from "./features/listados/pages/Expenses";
 import Login from "./features/users/pages/Login";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Layout from "./common/components/Layout";
-import Lines from "./features/lineas/pages/Lines";
+import Lines from "./features/lines/pages/Lines";
 
 function App() {
   return (
