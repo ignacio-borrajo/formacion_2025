@@ -1,0 +1,12 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 10vh;
+
+}
+
+#root>div>div:nth-child(3)>h4 {
+    display: flex;
+    justify-content: center;
+}
