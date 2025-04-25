@@ -1,5 +1,20 @@
 import React from "react";
+import {DataGrid} from "@mui/x-data-grid";
 
+const column = [
+  { field: "limit", headerName: "Limit"},
+  { field: "category", headerName: "Category"},
+  { field: "total", headerName: "Total"},
+  { field: "date", headerName: "Date"},
+];
+
+const rows = dato.map((item, index) => ({
+  id: index,
+  limit: item.limit,
+  category: item.category,
+  total: item.total,
+  date: item.date,
+}));
 const ItemList = ({ dato, search }) => {
   const [expense, setExpense] = React.useState();
 
@@ -8,15 +23,12 @@ const ItemList = ({ dato, search }) => {
   }, [dato]);
 
   return expense ? (
-    <div>
-      <h2>
-        <a href="lines/{dato.id}/">{expense.description}</a>
-      </h2>
-      <p>Límite: {expense.limit}</p>
-      <p>Categoría: {expense.category}</p>
-      <p>Total Gastos: {expense.total}</p>
-      <p>Fecha: {expense.date}</p>
-    </div>
+
+  <DataGrid
+    rows={expense}
+    columns={column}
+  ></DataGrid>
+
   ) : (
     "Loading"
   );
