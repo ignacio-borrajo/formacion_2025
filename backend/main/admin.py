@@ -1,9 +1,13 @@
 from django.contrib import admin
-from main.models import Expense, ExpenseLin, ExpenseTag
-
+from mainp.models import Expense, ExpenseLin, ExpenseTags # type: ignore
 
 class ExpenseAdmin(admin.ModelAdmin):
-    fields = ("description", "category", "limit", "user")
+    fields = (
+        "description",
+        "category",
+        "limit",
+        "user",
+    )
     list_display = (
         "description",
         "user",
@@ -11,44 +15,47 @@ class ExpenseAdmin(admin.ModelAdmin):
         "limit",
         "date",
     )
-    list_filter = ("category", "limit")
+    list_filter = ("category","limit")
     search_fields = ("description", "category")
-    ordering = ("-date", "description")
+    ordering = ("-date","description")
 
 
 class ExpenseLinAdmin(admin.ModelAdmin):
-    list_display = (
-        "description",
+    fields = (
         "expense",
+        "description",
         "amount",
         "date",
-        "get_tags", 
+    
     )
-    list_filter = ("expense", "tags")  # Añadimos filtro por etiquetas
-    search_fields = ("description",)
-    list_editable = ("amount",)
-    filter_horizontal = ("tags",)  # Interfaz más cómoda para seleccionar etiquetas
+    list_display = (
+        "expense",
+        "description",
+        "amount",
+        "date",
+        "get_tags",
+    )
+
     def get_tags(self, obj):
-        return ", ".join([tag.name for tag in obj.tags.all()])
-    get_tags.short_description = "Tags"
+        tg = ExpenseTags.objects.filter(expense_lines=obj)
+        return ", ".join([str(tag_eo) for tag_eo in tg])
 
-@admin.register(ExpenseTag)
+    list_filter = ("expense",)
+    search_fields = ("description",)
+    ordering = ("amount",)
+
 class ExpenseTagAdmin(admin.ModelAdmin):
-    list_display = ("name", "user")
-    search_fields = ("name",)
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser: # type: ignore
-            return qs
-        return qs.filter(user=request.user)
+    list_display = (
+        "description",
+        "get_lin",
+    )
+    search_fields = ("description",)
+    ordering = ("description",)
 
-    def save_model(self, request, obj, form, change):
-        if not obj.pk:  # Only set user on creation
-            obj.user = request.user
-        super().save_model(request, obj, form, change)
-
+    def get_lin(self, obj):
+        return "," .join([expense_lines.description for expense_lines in obj.expense_lines.all()])
 
 admin.site.register(Expense, ExpenseAdmin)
 admin.site.register(ExpenseLin, ExpenseLinAdmin)
-admin.site.register(ExpenseTag, ExpenseTagAdmin)
+admin.site.register(ExpenseTags, ExpenseTagAdmin)

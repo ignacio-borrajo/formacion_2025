@@ -12,3 +12,19 @@
 1. Incorporar la librería de MUI para mostrar de una forma más estética los gastos (Card, Grid, etc)
 2. Sección nueva donde ver las líneas de cada gasto (navegar, consultar, mostrar)
 3. Desarrollar el buscador del punto 4 del backend
+
+
+
+
+
+## Ejercicio final
+La finalidad de este ejercicio será la gestión de la tabla de cabeceras y las líneas desde el frontend:
+
+1. Cabeceras: se deberá aportar la funcionalidad necesaria para:
+
+- Crear cabeceras (POST): se creará un pequeño formulario que permita enviar datos al backend a través de POST y esto creará un "Expense" nuevo asociado al usuario conectado.
+- Eliminar cabeceras (DELETE): se añadirá algún elemento visual a cada cabecera que permita lanzar una petición DELETE al backend y se realice el borrado de la cabecera seleccionada por el usuario.
+- Editar cabeceras (PUT): idealmente utilizando el mismo formulario que para la creación se cargarán los datos de la cabecera seleccionada por el usuario y permitirá modificarlos y se podrán enviar al backend en un petición PUT con la que se actualizarán los datos en la BBDD.
+2. Líneas: se aportará la misma funcionalidad que en el punto 1 pero a las líneas "ExpenseLin"
+
+Se valorará la funcionalidad por encima del estilo.

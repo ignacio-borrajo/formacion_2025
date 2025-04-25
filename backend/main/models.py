@@ -1,10 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
-from main.managers import ExpenseManager
+from mainp.mangers import ExpenseManager # type: ignore
 
 UserModel = get_user_model()
-
 
 class Expense(models.Model):
     """
@@ -37,17 +36,19 @@ class Expense(models.Model):
         ],
         verbose_name=_("Category"),
     )
+
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
         related_name="expenses",
-        verbose_name=_("Usuario"),
+        verbose_name=_("User"),
     )
 
     objects = models.Manager()
     with_totals = ExpenseManager()
+    
 
     class Meta:
         verbose_name = _("Expense")
@@ -57,30 +58,7 @@ class Expense(models.Model):
     def __str__(self):
         return f"{self.description}"
 
-class ExpenseTag(models.Model):
-    """
-    Tag model for expense lines, private to each user.
-    """
-    name = models.CharField(
-        max_length=50,
-        verbose_name=_("Name"),
-    )
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-        related_name="expense_tags",
-        verbose_name=_("User"),
-    )
 
-    class Meta:
-        verbose_name = _("Expense Tag")
-        verbose_name_plural = _("Expense Tags")
-        unique_together = ("name", "user")
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-    
 class ExpenseLin(models.Model):
     """
     Model representing an expense line.
@@ -92,6 +70,7 @@ class ExpenseLin(models.Model):
         related_name="lines",
         verbose_name=_("Expense"),
     )
+
     description = models.CharField(
         max_length=255,
         verbose_name=_("Description"),
@@ -104,17 +83,44 @@ class ExpenseLin(models.Model):
     date = models.DateTimeField(
         verbose_name=_("Date"),
     )
-    tags = models.ManyToManyField(
-        ExpenseTag,
-        related_name="expense_lines",
-        blank=True,
-        verbose_name=_("Tags"),
-    )
 
     class Meta:
         verbose_name = _("Expense Line")
         verbose_name_plural = _("Expense Lines")
         ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.description}"
+
+
+class ExpenseTags(models.Model):
+    """
+    Model representing an expense tag.
+    """
+    expense_lines = models.ManyToManyField(
+    ExpenseLin,
+    related_name="tags",
+    verbose_name=_("Expense Line"),
+    )
+
+    description = models.CharField(
+        max_length=255,
+        verbose_name=_("Description"),
+    )
+    
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="tags",
+        verbose_name=_("User"),
+    )
+
+    class Meta:
+        verbose_name = _("Expense Tag")
+        verbose_name_plural = _("Expense Tags")
+        ordering = ["description"]
 
     def __str__(self):
         return f"{self.description}"
