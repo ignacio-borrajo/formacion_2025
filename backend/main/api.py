@@ -12,7 +12,6 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         user = self.request.user
         queryset = Expense.objects.filter(user=user)
 
-        # Obtener el parámetro 'tags' de la URL (si está presente)
         tags = self.request.query_params.get("tags", None)
 
         if tags:
