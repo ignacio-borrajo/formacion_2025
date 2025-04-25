@@ -1,6 +1,6 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
 from main.managers import ExpenseManager
 
 UserModel = get_user_model()
@@ -82,10 +82,48 @@ class ExpenseLin(models.Model):
         verbose_name=_("Date"),
     )
 
+    tags = models.ManyToManyField(
+        "Tag",
+        blank=True,
+        related_name="expense_lines",
+        verbose_name=_("Tags"),
+    )
+
     class Meta:
         verbose_name = _("Expense Line")
         verbose_name_plural = _("Expense Lines")
         ordering = ["-date"]
 
     def __str__(self):
-        return f"{self.description}"
+        tag_list = ", ".join([tag.name for tag in self.tags.all()])
+        return (
+            f"{self.description} ({tag_list})"
+            if tag_list
+            else f"{self.description}"
+        )
+
+
+class Tag(models.Model):
+    """
+    Model representing paid lines
+    Solo visible y accesible por el usuario que la creo.
+    """
+
+    name = models.CharField(
+        max_length=50,
+        verbose_name=_("Tag Name"),
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="tags",
+        verbose_name=_("Usuario"),
+    )
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+        unique_together = ("name", "user")
+
+    def __str__(self):
+        return self.name

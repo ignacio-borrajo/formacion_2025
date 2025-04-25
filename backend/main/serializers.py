@@ -1,8 +1,17 @@
+from main.models import Expense, ExpenseLin, Tag
 from rest_framework import serializers
-from main.models import Expense, ExpenseLin
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ("id", "name")
 
 
 class ExpenseLinSerializer(serializers.ModelSerializer):
+
+    tags = TagSerializer(many=True, read_only=True)
+
     class Meta:
         model = ExpenseLin
         fields = (
@@ -10,6 +19,7 @@ class ExpenseLinSerializer(serializers.ModelSerializer):
             "description",
             "amount",
             "date",
+            "tags",
         )
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import Expense, ExpenseLin
+from main.models import Expense, ExpenseLin, Tag
 
 
 class ExpenseAdmin(admin.ModelAdmin):
@@ -28,5 +28,12 @@ class ExpenseLinAdmin(admin.ModelAdmin):
     list_editable = ("amount",)
 
 
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name", "user")
+    search_fields = ("name",)
+    list_filter = ("user",)
+
+
 admin.site.register(Expense, ExpenseAdmin)
 admin.site.register(ExpenseLin, ExpenseLinAdmin)
+admin.site.register(Tag, TagAdmin)

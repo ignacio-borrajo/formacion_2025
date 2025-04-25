@@ -1,6 +1,7 @@
+from django.db.models import Sum
 from django.shortcuts import render
 from main.controllers import get_expenses, get_lines
-from django.db.models import Sum
+from main.models import Tag
 
 
 def index(request):
@@ -22,7 +23,16 @@ def index(request):
 
 
 def lines(request, expense):
+    tag_ids = request.GET.getlist("tags")
+
     lines = get_lines(expense_pk=expense)
-    context = {"lines": lines}
+
+    if tag_ids:
+        lines = lines.filter(tags__id__in=tag_ids).distinct()
+
+    context = {
+        "lines": lines,
+        "tags": Tag.objects.filter(user=request.user),
+    }
 
     return render(request, "lines.html", context)
