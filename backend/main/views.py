@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.controllers import get_expenses, get_lines
+from main.controllers import get_expenses, get_lines, get_tags
 from django.db.models import Sum
 
 
@@ -26,3 +26,10 @@ def lines(request, expense):
     context = {"lines": lines}
 
     return render(request, "lines.html", context)
+
+
+def tags(request, expenseLin):
+    tags2 = get_tags(expenseLin_pk=expenseLin)
+    context = {"tags": tags2}
+
+    return render(request, "tags.html", context)

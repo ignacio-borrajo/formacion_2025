@@ -1,0 +1,9 @@
+<h1>Tags</h1>
+
+{% for tag in tags %}
+<div class="line">
+    <h2>{{ tag.name }}</h2>
+    <p>Cantidad: {{ tag.user }}</p>
+</div>
+<hr />
+{% endfor %}

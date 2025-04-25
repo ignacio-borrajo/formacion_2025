@@ -3,7 +3,29 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from main.managers import ExpenseManager
 
+# Función proporcionada por Django para devolver el usuario activo
 UserModel = get_user_model()
+
+
+class Tags(models.Model):
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("name"),
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name="tags",
+        verbose_name=_("user"),
+    )
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Expense(models.Model):
@@ -80,6 +102,13 @@ class ExpenseLin(models.Model):
     )
     date = models.DateTimeField(
         verbose_name=_("Date"),
+    )
+
+    tag = models.ManyToManyField(
+        Tags,
+        related_name="lines",
+        blank=True,
+        verbose_name=_("tag"),
     )
 
     class Meta:

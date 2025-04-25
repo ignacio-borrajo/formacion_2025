@@ -1,4 +1,6 @@
-from main.models import Expense, ExpenseLin
+from main.models import Expense, ExpenseLin, Tags
+
+# Importa la clase Q, que permite hacer consultas complejas en Django, como ORs y ANDs entre filtros.
 from django.db.models import Q
 
 
@@ -17,3 +19,8 @@ def get_expenses(connected_user):
 def get_lines(expense_pk):
     lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0)
     return lines
+
+
+def get_tags(expenseLin_pk):
+    tag = ExpenseLin.objects.get(pk=expenseLin_pk)
+    return tag

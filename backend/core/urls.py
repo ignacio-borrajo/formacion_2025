@@ -17,17 +17,21 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from main.views import index, lines
+from main.views import index, lines, tags
 from users.views import login_view, logout_view
-from main.api import ExpenseViewSet
+from main.api import ExpenseViewSet, ExpenseLinViewSet
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
+# Esta lista tiene todas las rutas que acepta el sitio web. Django las recorre hasta encontrar una coincidencia
 urlpatterns = [
+    ## Al visitar admin, cargamos la interfaz de administración
     path("admin/", admin.site.urls),
+    ## Ruta vacía a localhost, función que definimos en views, nombre identificador de la ruta
     path("", index, name="lista_gastos"),
+    path("tags/<int:expenseLin>/", tags, name="lista_tags"),
     path(
         "api/gastos/",
         ExpenseViewSet.as_view({"get": "list", "post": "create"}),
@@ -35,7 +39,7 @@ urlpatterns = [
     ),
     path(
         "api/gastos/<int:pk>/",
-        ExpenseViewSet.as_view(
+        ExpenseLinViewSet.as_view(
             {"get": "retrieve", "put": "update", "delete": "destroy"}
         ),
         name="gasto_api",

@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <h1>GASTOS</h1>
+<h1>GASTOS</h1>
 {% endblock %}
 {% block content %}
-  {% for expense in expenses %}
-    <div>
-      <h2><a href="lines/{{ expense.id }}/">{{ expense.description }}</a></h2>
-      <p>Límite: {{ expense.limit }}</p>
-      <p>Categoría: {{ expense.category }}</p>
-      <p>Total Gastos: {{ expense.total }}</p>
-      <p>Fecha: {{ expense.date }}</p>
-    </div>
-  {% endfor %}
-  {% if expenses %}
-    <h2>Total Gastos: {{ total_expense }}</h2>
-  {% else %}
-    <p>No hay gastos registrados.</p>
-  {% endif %}
+<!-- Recorremos todos los objetos pasados desde la vista en el context (variable expenses) -->
+{% for expense in expenses %}
+<div>
+  <h2><a href="lines/{{ expense.id }}/">{{ expense.description }}</a></h2>
+  <p>Límite: {{ expense.limit }}</p>
+  <p>Categoría: {{ expense.category }}</p>
+  <p>Total Gastos: {{ expense.total }}</p>
+  <p>Fecha: {{ expense.date }}</p>
+</div>
+{% endfor %}
+<!-- Comprobamos si la lista no está vacía, para hacer la suma de los gastos-->
+{% if expenses %}
+<h2>Total Gastos: {{ total_expense }}</h2>
+{% else %}
+<p>No hay gastos registrados.</p>
+{% endif %}
 {% endblock %}
