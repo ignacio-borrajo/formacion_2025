@@ -11,9 +11,9 @@
 
 ## Frontend (React)
 
-1. Incorporar la librería de MUI para mostrar de una forma más estética los gastos (Card, Grid, etc)
-2. Sección nueva donde ver las líneas de cada gasto (navegar, consultar, mostrar)
-3. Desarrollar el buscador del punto 4 del backend
+1. Incorporar la librería de MUI para mostrar de una forma más estética los gastos (Card, Grid, etc) - DONE
+2. Sección nueva donde ver las líneas de cada gasto (navegar, consultar, mostrar) - DONE
+3. Desarrollar el buscador del punto 4 del backend - PENDING
 
 ---
 

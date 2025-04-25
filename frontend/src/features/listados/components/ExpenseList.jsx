@@ -1,6 +1,6 @@
 import React from "react";
-import ItemList from "./ItemList";
 import useFetchExpenses from "../hooks/useFetchExpense";
+import ItemList from "./ItemList";
 
 const ExpenseList = ({ onSearch = () => {} }) => {
   const [expenses, setExpenses] = React.useState([]);
@@ -30,9 +30,12 @@ const ExpenseList = ({ onSearch = () => {} }) => {
     <div className="listado-gastos">
       <input type="text" placeholder="Buscar" value={inputValue} onChange={handleChange} />
       <button onClick={handleClick}>Buscar</button>
-      {expenses?.map((dato) => {
-        return <ItemList key={dato.id} dato={dato} search={inputValue} />;
-      })}
+      {expenses?.map((dato) => (
+        <>
+          <ItemList key={dato.id} dato={dato} search={inputValue} />
+          <br />
+        </>
+      ))}
     </div>
   );
 };

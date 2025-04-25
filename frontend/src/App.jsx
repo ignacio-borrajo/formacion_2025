@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import Expenses from "./features/listados/pages/Expenses";
-import Login from "./features/users/pages/Login";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Layout from "./common/components/Layout";
+import Expenses from "./features/listados/pages/Expenses";
+import ExpensesLins from "./features/listados/pages/ExpensesLins";
+import Login from "./features/users/pages/Login";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
           <Route path="/" exact element={<Expenses />} />
           <Route path="/login" element={<Login />} />
           <Route path="/gastos" element={<Expenses />} />
+          <Route path="/lines/:expenseId" element={<ExpensesLins />} />
         </Route>
       </Routes>
     </Router>

@@ -1,5 +1,5 @@
-from rest_framework import serializers
 from main.models import Expense, ExpenseLin
+from rest_framework import serializers
 
 
 class ExpenseLinSerializer(serializers.ModelSerializer):
@@ -10,6 +10,7 @@ class ExpenseLinSerializer(serializers.ModelSerializer):
             "description",
             "amount",
             "date",
+            "tag",
         )
 
 
@@ -31,7 +32,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "description",
-            "category",
             "limit",
             "date",
             "total",

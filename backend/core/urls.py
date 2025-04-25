@@ -17,13 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from main.api import ExpenseLineViewSet, ExpenseViewSet
 from main.views import index, lines
-from users.views import login_view, logout_view
-from main.api import ExpenseViewSet
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from users.views import login_view, logout_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -41,6 +41,11 @@ urlpatterns = [
         name="gasto_api",
     ),
     path("lines/<int:expense>/", lines, name="lista_lineas_gasto"),
+    path(
+        "api/lines/<int:expense>/",
+        ExpenseLineViewSet.as_view({"get": "list", "post": "create"}),
+        name="lista_lineas_gasto_api",
+    ),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
     path(
