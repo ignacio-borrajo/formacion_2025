@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import useFetchExpenses from "../hooks/useFetchExpense";
+import { DataGrid } from '@mui/x-data-grid';
 
 const ExpenseList = ({ onSearch = () => {} }) => {
-  const [expenses, setExpenses] = React.useState([]);
-  const [inputValue, setInputValue] = React.useState("");
+  const [expenses, setExpenses] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   const { response, error, loading } = useFetchExpenses();
+  
+  const columns =[
+    {field: "description",headerName:"Descripcion"},
+    {field: "category",headerName:"Categoria"},
+    {field: "limit",headerName:"Limite"},
+    {field: "date",headerName:"Fecha"},
+    {field: "total",headerName:"Total"},
+    {field:"id",headerName:"Ver Lineas", 
+      renderCell:(params)=>(
+        <a href={`gastos/${params.value}`}>
+          {params.value}
+        </a>
+      )
+    },
+    ]
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (response) {
       setExpenses(response);
     }
@@ -27,12 +43,8 @@ const ExpenseList = ({ onSearch = () => {} }) => {
   ) : loading ? (
     <h4>Cargando...</h4>
   ) : (
-    <div className="listado-gastos">
-      <input type="text" placeholder="Buscar" value={inputValue} onChange={handleChange} />
-      <button onClick={handleClick}>Buscar</button>
-      {expenses?.map((dato) => {
-        return <ItemList key={dato.id} dato={dato} search={inputValue} />;
-      })}
+    <div className="listado-gastos w-100">
+        <DataGrid rows={expenses} columns={columns}/>
     </div>
   );
 };

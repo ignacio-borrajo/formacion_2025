@@ -88,12 +88,7 @@ class Tags(models.Model):
     )
 
     tag = models.CharField(
-        max_length=3,
-        choices=[
-            ("Y", _("Yes")),
-            ("N", _("No")),
-            ("A",_("Acabado")),
-        ],
+        max_length=10,
         verbose_name=_("Tag"),
     )
 

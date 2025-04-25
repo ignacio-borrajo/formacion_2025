@@ -38,12 +38,12 @@ const Header = (props) => {
             <ListItemText primary="Inicio" />
           </ListItemButton>
         </ListItem>
-        <ListItem key={1} disablePadding>
+        <ListItem key={2} disablePadding>
           <ListItemButton sx={{ textAlign: "center" }} component={Link} to="/login">
             <ListItemText primary="Login" />
           </ListItemButton>
         </ListItem>
-        <ListItem key={1} disablePadding>
+        <ListItem key={3} disablePadding>
           <ListItemButton sx={{ textAlign: "center" }} component={Link} to="/gastos">
             <ListItemText primary="Gastos" />
           </ListItemButton>

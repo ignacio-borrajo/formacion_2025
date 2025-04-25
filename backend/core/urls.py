@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from main.views import index,lines
 from users.views import login_view,logout_view
-from main.api import ExpenseViewSet
+from main.api import ExpenseViewSet,ExpenseLinViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -33,7 +33,7 @@ urlpatterns = [
 
     #Api.py
     path("api/gastos/",ExpenseViewSet.as_view({"get":"list"}),name="index"),
-    path("api/gastos/<int:pk>",ExpenseViewSet.as_view({"get":"list"}),name="index"),
+    path("api/gastos/<int:pk>",ExpenseLinViewSet.as_view({"get":"list"}),name="index"),
     path("lines/<int:expense_pk_get>",ExpenseViewSet.as_view({"get":"list"}),name="lines"),
 
 

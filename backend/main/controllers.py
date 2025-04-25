@@ -1,5 +1,5 @@
 from main.models import Expense,ExpenseLin,Tags
-from django.db.models import Q
+from django.db.models import Q,Subquery
 
 def get_expenses(connected_user):
     if connected_user.is_authenticated:
@@ -10,13 +10,20 @@ def get_expenses(connected_user):
     return expenses
 
 def get_lines(expense_pk):
-    lines = ExpenseLin.objects.filter(expense=expense_pk,amount__gt=0)
+    lines = ExpenseLin.objects.filter(expense=expense_pk)
     return lines
+
+
+
+
 
 def get_tags(expenselin_pk,connectedUser):
     tags = Tags.objects.filter(expenselin=expenselin_pk,user=connectedUser)
     return tags
 
-def post_tags(expenselin_pk,connectedUser):
-    tags = Tags.objects.filter(expenselin=expenselin_pk,user=connectedUser)
-    return tags
+def post_lines(expenselin_pk,post_tag):
+    related_lin_tag = Tags.objects.filter(expenselin=expenselin_pk,id=post_tag)
+    lines = ''
+    if related_lin_tag:
+        lines = ExpenseLin.objects.filter(id=expenselin_pk)
+    return lines

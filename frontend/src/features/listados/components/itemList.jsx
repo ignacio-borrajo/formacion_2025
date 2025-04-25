@@ -1,21 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { DataGrid } from '@mui/x-data-grid';
 
 const ItemList = ({ dato, search }) => {
-  const [expense, setExpense] = React.useState();
+  const [rows,setRows] = useState([])
 
-  React.useEffect(() => {
-    setExpense(dato);
+  useEffect(() => {
+    setRows([
+      {id: dato.id,Description: dato.description, Category: dato.category, Limit: dato.limit , Date: dato.date, Total: dato.total},
+    ])
   }, [dato]);
 
-  return expense ? (
-    <div>
-      <h2>
-        <a href="lines/{dato.id}/">{expense.description}</a>
-      </h2>
-      <p>Límite: {expense.limit}</p>
-      <p>Categoría: {expense.category}</p>
-      <p>Total Gastos: {expense.total}</p>
-      <p>Fecha: {expense.date}</p>
+  return rows ? (
+    <div style={{ width:"100%"}}>
+      
     </div>
   ) : (
     "Loading"

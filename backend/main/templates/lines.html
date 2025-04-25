@@ -4,7 +4,7 @@
         <h1>Lineas</h1>
     {% endblock %}
     {% block content %}
-    <form action="" method="POST" class="row">
+    <form action="{{request.get_full_path}}" method="POST" class="row">
         {%csrf_token%}
         <div class="mb-3 col-4">
             <label for="" class="form-label">Etiquetas</label>
@@ -16,7 +16,7 @@
             >
             {% for tg in tags %}
                 {% for tgs in tg %}
-                    <option value="{{tgs.id}}">{{tgs}}</option>
+                    <option value="{{tgs.id}}">{{tgs.tag}}</option>
                 {% endfor %}
             {% endfor %}
             </select>
