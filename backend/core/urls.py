@@ -25,6 +25,7 @@ urlpatterns = [
     path("", index),
     path("admin/", admin.site.urls),
     path("gastos/", index, name="lista_gastos"),
+    path("lines/<int:expense>/", lines, name="gasto"),
     path("api/gastos/", ExpenseViewSet.as_view({"get": "list", "post": "create"}), name="lista_gastos_api"),
     path("api/gastos/<int:pk>/", ExpenseViewSet.as_view({"get":"list","post":"create"}), name="lista_gastos_api"),
     path("lines/<int:expense>/", ExpenseViewSet.as_view({"get":"retrieve","put":"update","delete":"destroy"}), name="gasto_api"),

@@ -1,4 +1,4 @@
-from mainp.models import Expense, ExpenseLin
+from mainp.models import Expense, ExpenseLin, ExpenseTags
 from django.db.models import Q
 
 def get_expenses(connected_user):
@@ -17,3 +17,11 @@ def get_expenses(connected_user):
 def get_lines(expense_pk):
     lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0)
     return lines
+
+def get_tags(expenselin_pk,connectedUser):
+    tags = ExpenseTags.objects.filter(expense_lines=expenselin_pk,user=connectedUser)
+    return tags
+
+def post_tags(expenselin_pk,connectedUser):
+    tags = ExpenseTags.objects.filter(expense_lines=expenselin_pk,user=connectedUser)
+    return tags

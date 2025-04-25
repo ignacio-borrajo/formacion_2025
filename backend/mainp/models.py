@@ -107,11 +107,13 @@ class ExpenseTags(models.Model):
         max_length=255,
         verbose_name=_("Description"),
     )
-
+    
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
-        related_name="expense_tags",
+        blank=True,
+        null=True,
+        related_name="tags",
         verbose_name=_("User"),
     )
 
