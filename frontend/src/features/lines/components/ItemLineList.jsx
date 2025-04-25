@@ -1,12 +1,31 @@
 import React from "react";
-import {Box,Typography} from "@mui/material";
+import {Box,Typography, Button} from "@mui/material";
+import api from "../../../api/api";
+import { useNavigate} from "react-router-dom";
 
 const ItemList = ({ dato }) => {
   const [expense, setExpense] = React.useState();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     setExpense(dato);
   }, [dato]);
+
+  const handleClick = () => {
+    api
+    .delete("lines/"+expense.id+"/")
+    .then(() => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Delete error:", error);
+      setError("Fallo al eliminar");
+    });
+    window.location.reload();
+  };
+  const handleClickEdit = () => {
+    navigate("/editLine/"+ expense.id);
+  };
 
   return expense ? (
     <Box  sx={{
@@ -24,6 +43,8 @@ const ItemList = ({ dato }) => {
            <span key={index}>{tag.name}, </span>
         )))}
         </Typography>
+        <Button variant="contained" onClick={handleClick}>BORRAR</Button>
+        <Button variant="contained" onClick={handleClickEdit}>EDITAR</Button>
     </Box>
   ) : (
     "Loading"

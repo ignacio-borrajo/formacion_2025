@@ -11,8 +11,13 @@ const useFetchExpenses = () => {
   const fetchData = React.useCallback(() => {
     setLoading(true);
     setError(null);
+    let tag = "";
+    if (searchParams.get('tag')) {
+      tag = "&tag=" + searchParams.get('tag');
+    }
+    console.log(tag)
     api
-      .get("lines/?expense="+searchParams.get('expense')+"&tag="+searchParams.get('tag'))
+      .get("lines/?expense="+searchParams.get('expense')+tag)
       .then((response) => {
         setResponse(response.data);
       })

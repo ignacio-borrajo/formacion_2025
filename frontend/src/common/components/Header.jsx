@@ -55,6 +55,11 @@ const Header = (props) => {
             <ListItemText primary="Añadir" />
           </ListItemButton>
         </ListItem>
+        <ListItem key={1} disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }} component={Link} to="/addLine">
+            <ListItemText primary="Añadir Linea" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -84,6 +89,9 @@ const Header = (props) => {
             </Button>
             <Button component={Link} to="/add" sx={{ color: "#fff" }}>
               Añadir
+            </Button>
+            <Button component={Link} to="/addLine" sx={{ color: "#fff" }}>
+              Añadir Linea
             </Button>
           </Box>
         </Toolbar>

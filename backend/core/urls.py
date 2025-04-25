@@ -41,6 +41,13 @@ urlpatterns = [
         name="gasto_api",
     ),
     path(
+        "api/lines/<int:pk>/",
+        ExpenseLineViewSet.as_view(
+            {"get": "retrieve", "put": "update", "delete": "destroy"}
+        ),
+        name="lineas_api",
+    ),
+    path(
         "api/lines/",
         ExpenseLineViewSet.as_view({"get": "list", "post": "create"}),
         name="lista_gastos_lineas_api",

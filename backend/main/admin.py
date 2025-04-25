@@ -34,6 +34,7 @@ class ExpenseLinAdmin(admin.ModelAdmin):
 
 class ExpenseTagAdmin(admin.ModelAdmin):
     list_display = (
+        "id",
         "name",
         "description",
         "user"

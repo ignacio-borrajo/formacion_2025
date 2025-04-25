@@ -25,5 +25,11 @@ def get_lines(request,expense_pk):
 def get_linesApi(request):
     expense_pk = request.GET.get("expense")
     tag_param = request.GET.get("tag")
-    lines = ExpenseLin.objects.filter(expense=expense_pk,tag__name__icontains=tag_param)
+
+    if expense_pk is None and tag_param is None:
+        lines = ExpenseLin.objects
+    elif tag_param is None:
+        lines = ExpenseLin.objects.filter(expense=expense_pk)
+    else:
+        lines = ExpenseLin.objects.filter(expense=expense_pk, amount__gt=0, tag__name__icontains=tag_param)
     return lines
