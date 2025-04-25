@@ -32,7 +32,7 @@ def lines(request, expense):
     print(expense)
 
     # llamo al controller como corresponde usando el parametro dado por la url para el filtrado
-    lines = get_lines(user=user, expense_pk=expense)
+    lines = get_lines(connected_user=user, expense_pk=expense)
 
     # Meto en el contexto en un diccionario los datos que necesito
     context = {"lines": lines}

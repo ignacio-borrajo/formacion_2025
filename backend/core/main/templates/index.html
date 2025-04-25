@@ -1,4 +1,10 @@
 <h1>GASTOS</h1>
+
+{% if user.is_authenticated %}
+      <a>Hola {{ user.username }}!</a>
+    {% else %}
+      <a >No estas loggeado</a>
+{% endif %}
 {% for gasto in expenses %}
     <div>
         <h1>{{gasto.id}}</h1>

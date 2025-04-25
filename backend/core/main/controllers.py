@@ -1,8 +1,8 @@
-from main.models import Expense, ExpenseLin
-from django.db.models import Sum
+from main.models import Expense, ExpenseLin, Tag
+from django.db.models import Sum, Count
 
 # Importo para usar or
-from django.db.models import Q
+from django.db.models import Q, When, Case
 
 
 # Utility para obtener un array con todas las expenses y total de la suma de sus amount de linea
@@ -36,7 +36,28 @@ def get_expenses_total():
 
 # Modifica get_lines, debe recibir la pk de la expense y el usuario para filtrar las tags
 # Cojo las lineas de la expense proporcionada
-def get_lines(expense_pk, user):
+def get_lines(expense_pk, connected_user):
     # Filtro por las lineas de la expense deseada con amount>0 y tags del user
-    lines = ExpenseLin.with_tags.filter(expense=expense_pk, amount__gt=0)
+
+    if connected_user.is_authenticated:
+        # Cojo las expenses del manager con los totales de expense line calculados
+        print("auth user " + str(connected_user))
+        lines = (
+            ExpenseLin.with_tags.prefetch_related("tags")
+            .filter(expense=expense_pk, amount__gt=0)
+            .filter(
+                Q(Q(tags__user=connected_user) | Q(tags=None)) | Q(tags=None)
+            )
+        )
+
+    else:
+        lines = ExpenseLin.with_tags.filter(expense=expense_pk, amount__gt=0)
+
     return lines
+
+
+# .filter(Q(Q(tags__user=connected_user) | Q(tags=None)))
+# .filter(tags__user__isnull=True)
+
+
+# .filter(Q(Q(tags__user=connected_user) | Q(ntags=0)))

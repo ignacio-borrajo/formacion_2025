@@ -30,7 +30,12 @@ class ExpenseLinViewSet(viewsets.ModelViewSet):
         expense = self.kwargs.get("expense")
 
         # De ahi se que tengo el user porque rest_framework de django al autenticarme me lo mete aquí
-        queryset = get_lines(expense_pk=expense, user=self.request.user)
+        queryset = get_lines(
+            expense_pk=expense, connected_user=self.request.user
+        )
         print("hago el queryset bien")
         print(queryset)
         return queryset
+
+    def list(self, request):
+        return Response(self.get_queryset())

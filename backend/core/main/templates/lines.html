@@ -1,11 +1,25 @@
 <h1>Líneas</h1>
 
+{% if user.is_authenticated %}
+      <a>Hola {{ user.username }}!</a>
+    {% else %}
+      <a >No estas loggeado</a>
+{% endif %}
 {% for line in lines %}
   <div class="line">
     <h2>{{ line.description }}</h2>
 
     <p>Fecha: {{ line.date }}</p>
+
+    <p>{{line.ntags}}</p>
+
     <p>{{line.tags_names}}</p>
+    <p>Tags:</p>
+    <p>{{line.tags.all}}</p>
+    
+    
+
+    
   </div>
   <hr />
 {% endfor %}
