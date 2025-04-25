@@ -24,7 +24,7 @@ def index(request):
 def lines(request, expense):
     user = request.user
     selected_tags = request.GET.getlist('tags')  # Obtener las etiquetas seleccionadas por el usuario
-    lines = get_lines(expense_pk=expense,user=user)
+    lines = get_lines(expense_pk=expense)
     
     #Eliminar valores vacíos de la lista de etiquetas seleccionadas
     selected_tags = [tag for tag in selected_tags if tag]
@@ -33,7 +33,7 @@ def lines(request, expense):
         # Filtrar las líneas que tienen las etiquetas seleccionadas
         lines = lines.filter(tags__id__in=selected_tags).distinct()
     # Obtener las etiquetas disponibles para el usuario
-    available_tags = Tag.objects.filter(user=user, lines__expense=expense).distinct()
+    available_tags = Tag.objects.filter(lines__expense=expense).distinct()
 
     context = {
         "lines": lines,

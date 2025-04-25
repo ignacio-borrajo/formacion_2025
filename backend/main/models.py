@@ -82,6 +82,8 @@ class ExpenseLin(models.Model):
         verbose_name=_("Date"),
     )
 
+    objects = models.Manager()
+
    
 
     class Meta:
