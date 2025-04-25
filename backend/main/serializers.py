@@ -8,7 +8,7 @@ class TagSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Tag
-        fields = ["name"]  # Incluir los campos necesarios
+        fields = ["name"]  
 
 
 class ExpenseLinSerializer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class ExpenseLinSerializer(serializers.ModelSerializer):
             "description",
             "amount",
             "date",
-            "tags",  # Ahora devuelve los nombres de los tags
+            "tags",  
         )
 
 

@@ -16,7 +16,7 @@ const ExpenseLines = () => {
         if (searchTerm.trim() === "") {
             // Si el término de búsqueda está vacío, recupera todas las líneas
             api
-                .get(`http://127.0.0.1:8000/api/gastos/${id}/`)
+                .get(`/gastos/${id}/`)
                 .then((response) => setLines(response.data.lines))
                 .catch((err) => setError("Error fetching expense lines"));
         } else {
@@ -30,7 +30,7 @@ const ExpenseLines = () => {
 
     React.useEffect(() => {
         api
-            .get(`http://127.0.0.1:8000/api/gastos/${id}/`)
+            .get(`/gastos/${id}/`)
             .then((response) => { console.log(response); setLines(response.data.lines) })
             .catch((err) => setError("Error fetching expense lines"));
     }, [id]);

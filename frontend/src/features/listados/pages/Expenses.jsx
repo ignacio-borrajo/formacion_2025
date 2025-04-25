@@ -3,7 +3,6 @@ import ExpenseList from "../components/ExpenseList";
 
 const Expenses = () => {
   const handleSearch = (searchTerm) => {
-    // Aquí puedes manejar la búsqueda, por ejemplo, filtrando los gastos
   };
 
   return (
