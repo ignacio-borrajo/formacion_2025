@@ -29,11 +29,6 @@ class ExpenseLinViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         expense = self.kwargs.get("expense")
 
-        print("intento la expenselin get")
-
-        print(
-            "La expense es:" + (str(expense) if expense is not None else "0")
-        )
         # De ahi se que tengo el user porque rest_framework de django al autenticarme me lo mete aquí
         queryset = get_lines(expense_pk=expense, user=self.request.user)
         print("hago el queryset bien")
