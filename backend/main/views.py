@@ -1,6 +1,6 @@
+from django.db.models import Sum
 from django.shortcuts import render
 from main.controllers import get_expenses, get_lines
-from django.db.models import Sum
 
 
 def index(request):
@@ -22,7 +22,8 @@ def index(request):
 
 
 def lines(request, expense):
-    tag_codes = request.GET.getlist('tags')  # Get tag codes from query parameters
+    tag_codes = request.GET.getlist("tags")  # Get tag codes from
+    # query parameters
     lines = get_lines(expense_pk=expense, tag_codes=tag_codes)
     context = {"lines": lines}
 

@@ -1,5 +1,5 @@
-from main.models import Expense, ExpenseLin
 from django.db.models import Q
+from main.models import Expense, ExpenseLin
 
 
 def get_expenses(connected_user):
@@ -20,8 +20,6 @@ def get_lines(expense_pk, tag_codes=None):
     connected_user = Expense.objects.get(pk=expense_pk).user
     if connected_user:
         lines = lines.filter(tag__user=connected_user)
-    
     if tag_codes:
         lines = lines.filter(tag__code__in=tag_codes).distinct()
-    
     return lines

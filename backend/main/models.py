@@ -1,6 +1,6 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
 from main.managers import ExpenseManager
 
 UserModel = get_user_model()
@@ -26,7 +26,7 @@ class Expense(models.Model):
         auto_now_add=True,
         verbose_name=_("Date"),
     )
-    
+
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
@@ -52,6 +52,7 @@ class Tag(models.Model):
     """
     Model representing a tag.
     """
+
     code = models.CharField(
         max_length=10,
         unique=True,
@@ -91,7 +92,7 @@ class ExpenseLin(models.Model):
         verbose_name=_("Expense"),
     )
 
-    tag = models.ManyToManyField( 
+    tag = models.ManyToManyField(
         Tag,
         blank=True,
         related_name="lines",
