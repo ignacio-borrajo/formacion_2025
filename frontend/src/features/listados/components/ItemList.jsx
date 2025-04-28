@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 
 const ItemList = ({ dato, search }) => {
@@ -16,6 +17,13 @@ const ItemList = ({ dato, search }) => {
       <p>Categoría: {expense.category}</p>
       <p>Total Gastos: {expense.total}</p>
       <p>Fecha: {expense.date}</p>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => window.location.href = `gastos/${expense.id}/lineas`} 
+      >
+        Ver Líneas
+      </Button>
     </div>
   ) : (
     "Loading"

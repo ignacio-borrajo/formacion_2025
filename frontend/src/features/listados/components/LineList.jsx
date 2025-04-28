@@ -1,19 +1,8 @@
-import { Button, Grid, TextField } from "@mui/material"; // Importa los componentes de MUI
+import { Button, Grid, TextField } from "@mui/material";
 import React from "react";
-import useFetchExpenses from "../hooks/useFetchExpense";
-import ItemList from "./ItemList";
 
-const ExpenseList = ({ onSearch = () => {} }) => {
-  const [expenses, setExpenses] = React.useState([]);
-  const [inputValue, setInputValue] = React.useState("");
-
-  const { response, error, loading } = useFetchExpenses();
-
-  React.useEffect(() => {
-    if (response) {
-      setExpenses(response);
-    }
-  }, [response]);
+const LineList = ({ onSearch = () => {}, searchTerm }) => {
+  const [inputValue, setInputValue] = React.useState(searchTerm || "");
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -23,12 +12,8 @@ const ExpenseList = ({ onSearch = () => {} }) => {
     onSearch(inputValue);
   };
 
-  return error ? (
-    <h4>Se ha producido un error</h4>
-  ) : loading ? (
-    <h4>Cargando...</h4>
-  ) : (
-    <div className="listado-gastos">
+  return (
+    <div className="listado-lineas">
       <div className="buscador">
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={9}>
@@ -54,12 +39,8 @@ const ExpenseList = ({ onSearch = () => {} }) => {
           </Grid>
         </Grid>
       </div>
-
-      {expenses?.map((dato) => {
-        return <ItemList key={dato.id} dato={dato} search={inputValue} />;
-      })}
     </div>
   );
 };
 
-export default ExpenseList;
+export default LineList;
