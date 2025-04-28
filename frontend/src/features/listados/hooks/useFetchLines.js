@@ -10,10 +10,10 @@ const useFetchLines = (expenseId, tags) => {
     setLoading(true);
     setError(null);
 
-    let url = `gastos/${expenseId}/lineas`;
-    
+    let url = `gastos/${expenseId}/lineas/`;
+
     if (tags) {
-      url += `?tag=${tags}`;
+      url += `?tags=${tags}`;
     }
 
     api
